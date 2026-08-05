@@ -213,14 +213,16 @@ describe.if(enabled)("integration: auth hardening + realtime", () => {
   });
 
   test("gateway rejects bad tokens and foreign-order subscriptions", async () => {
-    // Bad token → server closes the socket
+    // Bad token → server closes the socket with 4401 specifically. The mobile
+    // client branches on that code to refresh-and-retry instead of reconnecting
+    // forever with a token that can never work, so it is a real contract.
     const badWs = new WebSocket(`${wsBase}/ws?token=not-a-jwt`);
-    const closed = await new Promise<boolean>((resolve) => {
-      badWs.onclose = () => resolve(true);
+    const closeCode = await new Promise<number | null>((resolve) => {
+      badWs.onclose = (evt) => resolve((evt as { code?: number }).code ?? null);
       badWs.onerror = () => {};
-      setTimeout(() => resolve(false), 3_000);
+      setTimeout(() => resolve(null), 3_000);
     });
-    expect(closed).toBe(true);
+    expect(closeCode).toBe(4401);
 
     // Authenticated stranger subscribing to someone else's order → FORBIDDEN
     const reg = await call("POST", "/auth/register", {

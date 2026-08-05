@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { Ionicons } from "@expo/vector-icons";
 import type { Coordinates, Order, OrderStatus } from "@campuscart/shared";
-import { api, wsUrl } from "../api/client";
+import { api, refreshAccessToken, wsUrl } from "../api/client";
 import { Badge } from "../components/Badge";
 import { theme, elevation, radii, spacing, fontSize, weights } from "../theme";
 
@@ -27,6 +27,8 @@ const FALLBACK_POLL_MS = 30_000;
  *  tracking session never has both channels idle at once. */
 const RECONNECT_BASE_MS = 1_000;
 const RECONNECT_MAX_MS = 20_000;
+/** Gateway close code for a rejected token (see routes/ws.ts). */
+const WS_UNAUTHORIZED = 4401;
 
 /**
  * Live tracking: WebSocket-first (order status + courier location frames
@@ -64,6 +66,7 @@ export function OrderTrackingScreen({ orderId }: { orderId: string }): JSX.Eleme
   useEffect(() => {
     let closedByUs = false;
     let attempt = 0;
+    let refreshedOnce = false;
     let retry: ReturnType<typeof setTimeout> | null = null;
 
     const connect = (): void => {
@@ -91,9 +94,24 @@ export function OrderTrackingScreen({ orderId }: { orderId: string }): JSX.Eleme
           // ignore malformed frames
         }
       };
-      ws.onclose = () => {
+      ws.onclose = (evt) => {
         if (closedByUs) return;
         setLive(false); // the poll carries the screen while we're down
+
+        // The gateway authenticates once, at connect time, so an expired
+        // access token closes with 4401 and would fail identically forever.
+        // Refresh once and retry; if that fails the credentials are truly
+        // dead, so stop and leave the screen to the poll rather than
+        // hammering the server with a token that can never work.
+        if ((evt as { code?: number }).code === WS_UNAUTHORIZED) {
+          if (refreshedOnce) return;
+          refreshedOnce = true;
+          void refreshAccessToken().then((ok) => {
+            if (ok && !closedByUs) connect();
+          });
+          return;
+        }
+
         // Full jitter: campus wifi drops tend to hit many clients at once,
         // so identical backoffs would reconnect in lockstep.
         const ceiling = Math.min(RECONNECT_BASE_MS * 2 ** attempt, RECONNECT_MAX_MS);

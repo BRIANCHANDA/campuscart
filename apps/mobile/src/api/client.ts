@@ -146,6 +146,13 @@ async function rawRequest(path: string, init: RequestInit): Promise<Response> {
 
 /** One-shot token refresh; concurrent 401s share the same in-flight attempt. */
 let refreshing: Promise<boolean> | null = null;
+/**
+ * Force an access-token refresh. Exposed for the WebSocket gateway, which
+ * authenticates once at connect time and so can't lean on the 401-retry that
+ * covers HTTP requests.
+ */
+export const refreshAccessToken = (): Promise<boolean> => tryRefresh();
+
 async function tryRefresh(): Promise<boolean> {
   if (!refreshTokenValue) return false;
   refreshing ??= (async () => {
