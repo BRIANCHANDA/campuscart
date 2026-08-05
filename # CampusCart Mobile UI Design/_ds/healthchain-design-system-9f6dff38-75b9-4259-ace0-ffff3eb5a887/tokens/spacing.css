@@ -1,0 +1,44 @@
+/* ============================================================
+   HealthChain · Spacing, radii, elevation, motion
+   8pt base grid. Touch targets >= 44px (WCAG / arm's length).
+   Elevation is restrained — RN-friendly, no heavy blurs.
+   ============================================================ */
+:root {
+  /* ---- Spacing (8pt grid, 4px half-steps) ---- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;   /* default gutter / card padding */
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+
+  --screen-pad: 20px;   /* horizontal screen margin */
+  --touch-min: 44px;    /* minimum hit target */
+  --tabbar-h: 64px;
+
+  /* ---- Radii ---- */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;   /* default card / input */
+  --r-lg: 18px;   /* prominent cards, sheets */
+  --r-xl: 24px;   /* hero cards, ID card */
+  --r-pill: 999px;
+
+  /* ---- Elevation (soft, low-spread — translates to RN) ---- */
+  --elev-0: none;
+  --elev-1: 0 1px 2px rgba(10, 14, 26, 0.04), 0 1px 3px rgba(10, 14, 26, 0.06);
+  --elev-2: 0 2px 4px rgba(10, 14, 26, 0.05), 0 4px 12px rgba(10, 14, 26, 0.07);
+  --elev-3: 0 6px 16px rgba(10, 14, 26, 0.08), 0 12px 32px rgba(10, 14, 26, 0.10);
+  --elev-brand: 0 6px 20px rgba(5, 150, 105, 0.22); /* green CTA lift */
+
+  /* ---- Motion (calm, no bounce on clinical data) ---- */
+  --ease-standard: cubic-bezier(0.2, 0, 0.1, 1); /* @kind other */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast: 120ms; /* @kind other */
+  --dur-base: 200ms; /* @kind other */
+  --dur-slow: 320ms; /* @kind other */
+}

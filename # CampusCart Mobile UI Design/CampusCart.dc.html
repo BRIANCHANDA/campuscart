@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/healthchain-design-system-9f6dff38-75b9-4259-ace0-ffff3eb5a887/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/healthchain-design-system-9f6dff38-75b9-4259-ace0-ffff3eb5a887/tokens/colors.css">
+<link rel="stylesheet" href="_ds/healthchain-design-system-9f6dff38-75b9-4259-ace0-ffff3eb5a887/tokens/typography.css">
+<link rel="stylesheet" href="_ds/healthchain-design-system-9f6dff38-75b9-4259-ace0-ffff3eb5a887/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/healthchain-design-system-9f6dff38-75b9-4259-ace0-ffff3eb5a887/styles.css">
+<script src="_ds/healthchain-design-system-9f6dff38-75b9-4259-ace0-ffff3eb5a887/_ds_bundle.js"></script>
+<meta name="design_doc_mode" content="canvas">
+<style>
+  :root { --cc-amber: var(--amber-500); --cc-amber-ink: var(--amber-600); }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  @keyframes ccShimmer { 0% { background-position: -420px 0; } 100% { background-position: 420px 0; } }
+  @keyframes ccPulse { 0%,100% { opacity: 1; } 50% { opacity: .5; } }
+  @keyframes ccPin { 0% { transform: translate(0,0); } 50% { transform: translate(18px,-10px); } 100% { transform: translate(0,0); } }
+  @keyframes ccPing { 0% { transform: scale(.6); opacity:.9; } 100% { transform: scale(2.4); opacity: 0; } }
+</style>
+</helmet>
+<div style="min-height:100vh;padding:56px 60px 96px;font-family:var(--font-sans);color:var(--text-primary);background:color-mix(in srgb, var(--amber-050) 55%, var(--surface-inset));-webkit-font-smoothing:antialiased">
+
+  <header style="max-width:1100px;margin:0 0 8px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px">
+      <div style="width:52px;height:52px;border-radius:15px;background:var(--brand);display:flex;align-items:center;justify-content:center;box-shadow:var(--elev-brand)">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h2.2l2.1 12.4a1.6 1.6 0 0 0 1.6 1.3h8.9a1.6 1.6 0 0 0 1.6-1.2L21.5 7H6"/><circle cx="9.5" cy="20.5" r="1.4" fill="#fff"/><circle cx="17.5" cy="20.5" r="1.4" fill="#fff"/></svg>
+      </div>
+      <div>
+        <div style="font:var(--fw-semibold) 34px/1 var(--font-display);color:var(--text-primary);letter-spacing:-.01em">CampusCart</div>
+        <div style="font:var(--fw-medium) 14px/1.4 var(--font-sans);color:var(--text-secondary);margin-top:4px">Campus shopping &amp; delivery · Copperbelt University, Kitwe</div>
+      </div>
+    </div>
+    <p style="max-width:660px;font:var(--fw-regular) 16px/1.55 var(--font-sans);color:var(--text-secondary);margin:0">
+      High-fidelity mobile mockups across four roles — shopper, courier, shop admin and platform admin — built on the HealthChain token system (DM Sans, 8pt grid, restrained elevation) with a warm campus accent. Green anchors trust and primary actions; amber carries energy, prices and promos for bright-daylight readability. Prices in Zambian Kwacha, phones in +260 format.
+    </p>
+  </header>
+
+  <section data-screen-label="Style guide" style="max-width:1180px;margin:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="font:var(--fw-bold) 13px/1 var(--font-sans);color:var(--brand);letter-spacing:var(--ls-caps);text-transform:uppercase">Foundations</span>
+    </div>
+    <h2 style="font:var(--fw-bold) 26px/1.1 var(--font-sans);letter-spacing:-.02em;margin:0 0 6px">Component &amp; style guide</h2>
+    <p style="font:var(--fw-regular) 15px/1.5 var(--font-sans);color:var(--text-secondary);margin:0 0 28px;max-width:640px">One visual language shared across all four role flows — colors, type scale, spacing, and the button / badge / input / empty-state / skeleton variants used everywhere below.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px">
+
+      <!-- COLOR -->
+      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--elev-1)">
+        <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Color</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:44px;height:44px;border-radius:12px;background:var(--brand);box-shadow:var(--elev-1)"></span>
+            <div><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">Brand green</div><div style="font:var(--fw-regular) 12px/1 var(--font-mono);color:var(--text-muted)">#059669 · primary actions, active nav</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:44px;height:44px;border-radius:12px;background:var(--cc-amber);box-shadow:var(--elev-1)"></span>
+            <div><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">Campus amber</div><div style="font:var(--fw-regular) 12px/1 var(--font-mono);color:var(--text-muted)">#F59E0B · prices, promos, energy</div></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:4px">
+            <div style="flex:1;text-align:center"><span style="display:block;height:34px;border-radius:9px;background:var(--coral-500)"></span><span style="font:var(--fw-medium) 11px/2 var(--font-sans);color:var(--text-muted)">Coral</span></div>
+            <div style="flex:1;text-align:center"><span style="display:block;height:34px;border-radius:9px;background:var(--blue-500)"></span><span style="font:var(--fw-medium) 11px/2 var(--font-sans);color:var(--text-muted)">Blue</span></div>
+            <div style="flex:1;text-align:center"><span style="display:block;height:34px;border-radius:9px;background:var(--violet-500)"></span><span style="font:var(--fw-medium) 11px/2 var(--font-sans);color:var(--text-muted)">Violet</span></div>
+            <div style="flex:1;text-align:center"><span style="display:block;height:34px;border-radius:9px;background:var(--ink-900)"></span><span style="font:var(--fw-medium) 11px/2 var(--font-sans);color:var(--text-muted)">Ink</span></div>
+            <div style="flex:1;text-align:center"><span style="display:block;height:34px;border-radius:9px;background:var(--surface-bg);border:1px solid var(--border)"></span><span style="font:var(--fw-medium) 11px/2 var(--font-sans);color:var(--text-muted)">Surface</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPE -->
+      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--elev-1)">
+        <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Type scale</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font:var(--fw-semibold) 30px/1 var(--font-display)">CampusCart</span><span style="font:var(--fw-medium) 11px/1 var(--font-mono);color:var(--text-muted)">Playfair 34</span></div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-top:1px solid var(--border-faint);padding-top:11px"><span style="font:var(--fw-bold) 22px/1 var(--font-sans);letter-spacing:-.02em">Screen title</span><span style="font:var(--fw-medium) 11px/1 var(--font-mono);color:var(--text-muted)">Sans 700 · 26</span></div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font:var(--fw-semibold) 18px/1 var(--font-sans)">Card title</span><span style="font:var(--fw-medium) 11px/1 var(--font-mono);color:var(--text-muted)">Sans 600 · 18</span></div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font:var(--fw-regular) 15px/1 var(--font-sans);color:var(--text-secondary)">Body copy for descriptions</span><span style="font:var(--fw-medium) 11px/1 var(--font-mono);color:var(--text-muted)">Sans 400 · 15</span></div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px"><span style="font:var(--fw-medium) 14px/1 var(--font-mono)">K115.50 · +260 977 234 190</span><span style="font:var(--fw-medium) 11px/1 var(--font-mono);color:var(--text-muted)">DM Mono</span></div>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--elev-1)">
+        <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Buttons</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button style="height:48px;border-radius:var(--r-md);border:1px solid var(--brand);background:var(--brand);color:#fff;font:var(--fw-semibold) 15px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Place order · K115.50</button>
+          <div style="display:flex;gap:10px">
+            <button style="flex:1;height:44px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 14px/1 var(--font-sans);box-shadow:var(--elev-1);cursor:pointer">Secondary</button>
+            <button style="flex:1;height:44px;border-radius:var(--r-md);border:1px solid transparent;background:var(--brand-fill);color:var(--brand-deep);font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Tint</button>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button style="flex:1;height:44px;border-radius:var(--r-md);border:1px solid transparent;background:transparent;color:var(--brand-deep);font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Ghost</button>
+            <button style="flex:1;height:44px;border-radius:var(--r-md);border:1px solid var(--critical);background:var(--critical);color:#fff;font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Reject</button>
+          </div>
+          <button style="height:48px;border-radius:var(--r-md);border:1px solid var(--cc-amber);background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 15px/1 var(--font-sans);cursor:pointer">Accent · Go online</button>
+        </div>
+      </div>
+
+      <!-- BADGES -->
+      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--elev-1)">
+        <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Status badges — color + icon + label</div>
+        <div style="font:var(--fw-semibold) 11px/1 var(--font-sans);color:var(--text-muted);margin-bottom:9px">Order lifecycle</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--info-tint);color:var(--info-ink)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Placed</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--urgent-tint);color:var(--urgent-ink)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Preparing</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--accent-tint);color:var(--accent-ink)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ready</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--green-100);color:var(--success-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg>Out for delivery</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--success-ink);color:#fff"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Delivered</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--critical-tint);color:var(--critical-ink)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Cancelled</span>
+        </div>
+        <div style="font:var(--fw-semibold) 11px/1 var(--font-sans);color:var(--text-muted);margin-bottom:9px">Courier · payout · verification</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--green-100);color:var(--success-ink)"><span style="width:7px;height:7px;border-radius:99px;background:var(--green-600)"></span>Online</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--urgent-tint);color:var(--urgent-ink)">Pending payout</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--green-100);color:var(--success-ink)">Settled</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--urgent-tint);color:var(--urgent-ink)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Verification pending</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--green-100);color:var(--success-ink)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/></svg>Verified</span>
+        </div>
+      </div>
+
+      <!-- INPUTS + STEPPER -->
+      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--elev-1)">
+        <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Form input &amp; stepper</div>
+        <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:7px">Phone number</span>
+        <div style="display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;border-radius:var(--r-md);background:var(--surface-card);border:1.5px solid var(--brand);box-shadow:0 0 0 4px var(--focus-ring)">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          <span style="font:var(--fw-medium) 16px/1 var(--font-sans)">+260 977 234 190</span>
+        </div>
+        <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin:16px 0 7px">Quantity stepper &amp; toggle</span>
+        <div style="display:flex;align-items:center;gap:18px">
+          <div style="display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:999px;overflow:hidden">
+            <span style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--brand-deep)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg></span>
+            <span style="min-width:26px;text-align:center;font:var(--fw-bold) 15px/1 var(--font-sans)">2</span>
+            <span style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:var(--brand);color:#fff"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          </div>
+          <div style="width:54px;height:32px;border-radius:999px;background:var(--brand);padding:3px;display:flex;justify-content:flex-end"><span style="width:26px;height:26px;border-radius:99px;background:#fff;box-shadow:var(--elev-1)"></span></div>
+        </div>
+      </div>
+
+      <!-- EMPTY + SKELETON -->
+      <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--elev-1)">
+        <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Empty state &amp; skeleton</div>
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 0 18px;border-bottom:1px solid var(--border-faint);margin-bottom:16px">
+          <div style="width:56px;height:56px;border-radius:16px;background:var(--brand-tint);display:flex;align-items:center;justify-content:center;margin-bottom:12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h2.2l2.1 12.4a1.6 1.6 0 0 0 1.6 1.3h8.9a1.6 1.6 0 0 0 1.6-1.2L21.5 7H6"/><circle cx="9.5" cy="20.5" r="1.2"/><circle cx="17.5" cy="20.5" r="1.2"/></svg></div>
+          <div style="font:var(--fw-semibold) 15px/1.3 var(--font-sans);margin-bottom:4px">No orders yet</div>
+          <div style="font:var(--fw-regular) 13px/1.4 var(--font-sans);color:var(--text-secondary);max-width:240px">When you order from a campus shop, it\u2019ll show up here so you can track it.</div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,var(--surface-inset) 25%,var(--border-100) 37%,var(--surface-inset) 63%);background-size:420px 100%;animation:ccShimmer 1.4s infinite linear"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px;justify-content:center">
+            <div style="height:12px;width:75%;border-radius:6px;background:linear-gradient(90deg,var(--surface-inset) 25%,var(--border-100) 37%,var(--surface-inset) 63%);background-size:420px 100%;animation:ccShimmer 1.4s infinite linear"></div>
+            <div style="height:12px;width:45%;border-radius:6px;background:linear-gradient(90deg,var(--surface-inset) 25%,var(--border-100) 37%,var(--surface-inset) 63%);background-size:420px 100%;animation:ccShimmer 1.4s infinite linear"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB BARS -->
+    <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;box-shadow:var(--elev-1);margin-top:20px">
+      <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);margin-bottom:16px">Role-adaptive bottom tab bar</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+        <div>
+          <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);color:var(--brand);margin-bottom:8px">Shopper</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-around;height:60px;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:8px 6px;position:relative">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Home</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Orders</span></div>
+            <div style="flex:1;display:flex;justify-content:center"><div style="width:46px;height:46px;border-radius:16px;background:var(--brand);box-shadow:var(--elev-brand);display:flex;align-items:center;justify-content:center;margin-top:-22px;position:relative"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h2.2l2.1 12.4a1.6 1.6 0 0 0 1.6 1.3h8.9a1.6 1.6 0 0 0 1.6-1.2L21.5 7H6"/><circle cx="9.5" cy="20.5" r="1.3" fill="#fff"/><circle cx="17.5" cy="20.5" r="1.3" fill="#fff"/></svg><span style="position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 10px/18px var(--font-sans);text-align:center;border:2px solid var(--surface-card)">4</span></div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Track</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);color:var(--brand);margin-bottom:8px">Courier</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-around;height:60px;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:8px 6px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13v9H3z"/><path d="M16 9h3l2 3v3h-5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Jobs</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Active</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Earnings</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);color:var(--brand);margin-bottom:8px">Shop admin</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-around;height:60px;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:8px 6px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Orders</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Catalog</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21v-6h6v6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Shops</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);color:var(--brand);margin-bottom:8px">Platform admin</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-around;height:60px;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:8px 6px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Couriers</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Payouts</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21v-6h6v6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Shops</span></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Shopper flow" style="margin:64px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;font:var(--fw-bold) 15px/30px var(--font-sans);text-align:center">1</span>
+      <h2 style="font:var(--fw-bold) 26px/1.1 var(--font-sans);letter-spacing:-.02em;margin:0">Shopper flow</h2>
+    </div>
+    <p style="font:var(--fw-regular) 15px/1.5 var(--font-sans);color:var(--text-secondary);margin:0 0 30px 44px;max-width:560px">Browse across campus shops, add to cart, choose delivery or pickup, then track the order live to their lecture block.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:44px 34px">
+
+      <!-- S1 · AUTH -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex:1;display:flex;flex-direction:column;padding:26px 24px 24px">
+              <div style="width:64px;height:64px;border-radius:19px;background:var(--brand);display:flex;align-items:center;justify-content:center;box-shadow:var(--elev-brand);margin-bottom:22px"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h2.2l2.1 12.4a1.6 1.6 0 0 0 1.6 1.3h8.9a1.6 1.6 0 0 0 1.6-1.2L21.5 7H6"/><circle cx="9.5" cy="20.5" r="1.4" fill="#fff"/><circle cx="17.5" cy="20.5" r="1.4" fill="#fff"/></svg></div>
+              <div style="font:var(--fw-semibold) 30px/1.05 var(--font-display);letter-spacing:-.01em;margin-bottom:6px">Welcome back</div>
+              <div style="font:var(--fw-regular) 14px/1.45 var(--font-sans);color:var(--text-secondary);margin-bottom:22px">Sign in to order from campus shops and track deliveries.</div>
+              <div style="display:flex;background:var(--surface-inset);border-radius:12px;padding:4px;margin-bottom:20px">
+                <span style="flex:1;height:38px;display:flex;align-items:center;justify-content:center;font:var(--fw-semibold) 13px/1 var(--font-sans);background:var(--surface-card);color:var(--brand-deep);border-radius:9px;box-shadow:var(--elev-1)">Shopper</span>
+                <span style="flex:1;height:38px;display:flex;align-items:center;justify-content:center;gap:6px;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13v9H3z"/><path d="M16 9h3l2 3v3h-5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Courier</span>
+              </div>
+              <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:7px">Phone number</span>
+              <div style="display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;border-radius:var(--r-md);background:var(--surface-card);border:1.5px solid var(--border);margin-bottom:14px">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+                <span style="font:var(--fw-medium) 16px/1 var(--font-sans)">+260 977 234 190</span>
+              </div>
+              <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:7px">Password</span>
+              <div style="display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;border-radius:var(--r-md);background:var(--surface-card);border:1.5px solid var(--border);margin-bottom:10px">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                <span style="flex:1;font:var(--fw-medium) 16px/1 var(--font-sans);letter-spacing:2px;color:var(--text-primary)">••••••••</span>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+              <div style="text-align:right;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--brand);margin-bottom:auto">Forgot password?</div>
+              <button style="height:52px;border-radius:var(--r-md);border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 16px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer;margin:18px 0 14px">Sign in</button>
+              <div style="text-align:center;font:var(--fw-regular) 14px/1 var(--font-sans);color:var(--text-secondary)">New here? <span style="font-weight:600;color:var(--brand)">Create account</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">S1 · Sign in / register</div>
+      </div>
+
+      <!-- S2 · HOME FEED -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+              <div style="padding:6px 20px 14px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                  <div><div style="font:var(--fw-medium) 13px/1.2 var(--font-sans);color:var(--text-secondary)">Deliver to</div><div style="display:flex;align-items:center;gap:4px;font:var(--fw-bold) 16px/1.2 var(--font-sans)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>Riverside Hostel, Block C <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:var(--surface-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span style="position:absolute;top:8px;right:9px;width:8px;height:8px;border-radius:99px;background:var(--cc-amber);border:1.5px solid var(--surface-card)"></span></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;border-radius:14px;background:var(--surface-card);border:1px solid var(--border);box-shadow:var(--elev-1)">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                  <span style="font:var(--fw-regular) 15px/1 var(--font-sans);color:var(--text-muted)">Search shops &amp; products</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;padding:0 20px 12px;overflow:hidden">
+                <span style="flex-shrink:0;height:34px;padding:0 15px;display:flex;align-items:center;gap:6px;border-radius:999px;background:var(--brand);color:#fff;font:var(--fw-semibold) 13px/1 var(--font-sans)">All</span>
+                <span style="flex-shrink:0;height:34px;padding:0 15px;display:flex;align-items:center;border-radius:999px;background:var(--surface-card);border:1px solid var(--border);color:var(--text-secondary);font:var(--fw-semibold) 13px/1 var(--font-sans)">Food</span>
+                <span style="flex-shrink:0;height:34px;padding:0 15px;display:flex;align-items:center;border-radius:999px;background:var(--surface-card);border:1px solid var(--border);color:var(--text-secondary);font:var(--fw-semibold) 13px/1 var(--font-sans)">Drinks</span>
+                <span style="flex-shrink:0;height:34px;padding:0 15px;display:flex;align-items:center;border-radius:999px;background:var(--surface-card);border:1px solid var(--border);color:var(--text-secondary);font:var(--fw-semibold) 13px/1 var(--font-sans)">Stationery</span>
+              </div>
+              <div style="padding:0 20px 8px;display:flex;align-items:center;justify-content:space-between">
+                <span style="font:var(--fw-bold) 17px/1 var(--font-sans)">Popular near you</span>
+                <span style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--brand)">See all</span>
+              </div>
+              <div style="padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <!-- product tile -->
+                <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--elev-1)">
+                  <div style="height:88px;background:var(--amber-100);display:flex;align-items:center;justify-content:center;position:relative"><span style="font:var(--fw-bold) 30px/1 var(--font-display);color:var(--amber-600)">BS</span><span style="position:absolute;top:8px;left:8px;height:20px;padding:0 7px;border-radius:99px;background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 10px/20px var(--font-sans)">Popular</span></div>
+                  <div style="padding:10px 11px 12px">
+                    <div style="font:var(--fw-semibold) 13px/1.25 var(--font-sans)">Beef shawarma</div>
+                    <div style="font:var(--fw-regular) 11px/1.3 var(--font-sans);color:var(--text-muted);margin:2px 0 8px">Riverside Grill</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--cc-amber-ink)">K45.00</span><span style="width:32px;height:32px;border-radius:10px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>
+                  </div>
+                </div>
+                <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--elev-1)">
+                  <div style="height:88px;background:var(--blue-100);display:flex;align-items:center;justify-content:center"><span style="font:var(--fw-bold) 30px/1 var(--font-display);color:var(--blue-600)">CC</span></div>
+                  <div style="padding:10px 11px 12px">
+                    <div style="font:var(--fw-semibold) 13px/1.25 var(--font-sans)">Coca-Cola 500ml</div>
+                    <div style="font:var(--fw-regular) 11px/1.3 var(--font-sans);color:var(--text-muted);margin:2px 0 8px">Mama Nkoloso Tuck Shop</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--cc-amber-ink)">K12.50</span><span style="width:32px;height:32px;border-radius:10px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>
+                  </div>
+                </div>
+                <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--elev-1)">
+                  <div style="height:88px;background:var(--green-100);display:flex;align-items:center;justify-content:center"><span style="font:var(--fw-bold) 30px/1 var(--font-display);color:var(--green-800)">CQ</span></div>
+                  <div style="padding:10px 11px 12px">
+                    <div style="font:var(--fw-semibold) 13px/1.25 var(--font-sans)">Chips &amp; chicken</div>
+                    <div style="font:var(--fw-regular) 11px/1.3 var(--font-sans);color:var(--text-muted);margin:2px 0 8px">Riverside Grill</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--cc-amber-ink)">K27.50</span><span style="width:32px;height:32px;border-radius:10px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>
+                  </div>
+                </div>
+                <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--elev-1)">
+                  <div style="height:88px;background:var(--violet-100);display:flex;align-items:center;justify-content:center"><span style="font:var(--fw-bold) 30px/1 var(--font-display);color:var(--violet-600)">A4</span></div>
+                  <div style="padding:10px 11px 12px">
+                    <div style="font:var(--fw-semibold) 13px/1.25 var(--font-sans)">A4 notebook</div>
+                    <div style="font:var(--fw-regular) 11px/1.3 var(--font-sans);color:var(--text-muted);margin:2px 0 8px">CBU Stationers</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--cc-amber-ink)">K35.00</span><span style="width:32px;height:32px;border-radius:10px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Home</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Orders</span></div>
+              <div style="flex:1;display:flex;justify-content:center"><div style="width:48px;height:48px;border-radius:16px;background:var(--brand);box-shadow:var(--elev-brand);display:flex;align-items:center;justify-content:center;margin-top:-24px;position:relative"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h2.2l2.1 12.4a1.6 1.6 0 0 0 1.6 1.3h8.9a1.6 1.6 0 0 0 1.6-1.2L21.5 7H6"/><circle cx="9.5" cy="20.5" r="1.3" fill="#fff"/><circle cx="17.5" cy="20.5" r="1.3" fill="#fff"/></svg><span style="position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 11px/19px var(--font-sans);text-align:center;border:2px solid var(--surface-card)">4</span></div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Track</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">S2 · Home feed</div>
+      </div>
+
+      <!-- S3 · PRODUCT DETAIL -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+              <div style="height:220px;background:var(--amber-100);position:relative;display:flex;align-items:center;justify-content:center">
+                <span style="font:var(--fw-bold) 68px/1 var(--font-display);color:var(--amber-600)">BS</span>
+                <div style="position:absolute;top:16px;left:16px;width:40px;height:40px;border-radius:12px;background:var(--surface-card);display:flex;align-items:center;justify-content:center;box-shadow:var(--elev-1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+                <span style="position:absolute;top:20px;right:16px;height:26px;padding:0 11px;border-radius:99px;background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 12px/26px var(--font-sans)">Popular</span>
+              </div>
+              <div style="flex:1;padding:20px;display:flex;flex-direction:column">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+                  <div><div style="font:var(--fw-bold) 22px/1.15 var(--font-sans);letter-spacing:-.01em">Beef shawarma</div><div style="display:flex;align-items:center;gap:6px;margin-top:6px;font:var(--fw-medium) 13px/1 var(--font-sans);color:var(--text-secondary)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13v9H3z"/><path d="M16 9h3l2 3v3h-5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Riverside Grill · 6 min away</div></div>
+                  <span style="font:var(--fw-bold) 22px/1 var(--font-sans);color:var(--cc-amber-ink);white-space:nowrap">K45.00</span>
+                </div>
+                <div style="display:flex;gap:8px;margin:16px 0">
+                  <span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;background:var(--green-100);color:var(--success-ink);font:var(--fw-semibold) 12px/1 var(--font-sans)"><span style="width:7px;height:7px;border-radius:99px;background:var(--green-600)"></span>In stock</span>
+                  <span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:999px;background:var(--surface-inset);color:var(--text-secondary);font:var(--fw-semibold) 12px/1 var(--font-sans)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Ready in ~12 min</span>
+                </div>
+                <div style="font:var(--fw-regular) 14px/1.55 var(--font-sans);color:var(--text-secondary);margin-bottom:18px">Grilled beef, fresh salad, garlic sauce and chilli wrapped in warm pita. Made to order at the Riverside food court.</div>
+                <div style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:10px">Add extras</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--border);border-radius:12px;margin-bottom:9px"><span style="font:var(--fw-medium) 14px/1 var(--font-sans)">Extra chilli sauce</span><span style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--cc-amber-ink)">+K5.00</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--border);border-radius:12px"><span style="font:var(--fw-medium) 14px/1 var(--font-sans)">Add chips</span><span style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--cc-amber-ink)">+K15.00</span></div>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:center;gap:12px;padding:14px 20px 20px;background:var(--surface-card);border-top:1px solid var(--border)">
+              <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:999px">
+                <span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--brand-deep)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg></span>
+                <span style="min-width:24px;text-align:center;font:var(--fw-bold) 16px/1 var(--font-sans)">1</span>
+                <span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--brand);border-radius:99px;color:#fff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+              </div>
+              <button style="flex:1;height:52px;border-radius:var(--r-md);border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 15px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Add to cart · K45.00</button>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">S3 · Product detail</div>
+      </div>
+
+      <!-- S4 · CART (interactive) -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 12px;display:flex;align-items:center;gap:12px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span style="font:var(--fw-bold) 20px/1 var(--font-sans)">Your cart</span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:0 20px">
+              <sc-for list="{{ cartItems }}" as="item" hint-placeholder-count="3">
+                <div style="display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border-faint)">
+                  <div style="width:56px;height:56px;border-radius:12px;background:var(--brand-tint);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font:var(--fw-semibold) 14px/1.25 var(--font-sans)">{{ item.name }}</div>
+                    <div style="font:var(--fw-regular) 12px/1.3 var(--font-sans);color:var(--text-muted);margin:2px 0 8px">{{ item.shop }} · {{ item.unit }}</div>
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                      <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:999px">
+                        <span onClick="{{ item.dec }}" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--brand-deep);cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg></span>
+                        <span style="min-width:22px;text-align:center;font:var(--fw-bold) 14px/1 var(--font-sans)">{{ item.qty }}</span>
+                        <span onClick="{{ item.inc }}" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--brand);border-radius:99px;color:#fff;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                      </div>
+                      <span style="font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--cc-amber-ink)">{{ item.line }}</span>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display:flex;background:var(--surface-inset);border-radius:12px;padding:4px;margin:16px 0 14px">
+                <button onClick="{{ setDelivery }}" style="{{ delivStyle }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg>Delivery</button>
+                <button onClick="{{ setPickup }}" style="{{ pickStyle }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg>Pickup</button>
+              </div>
+              <sc-if value="{{ isDelivery }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;gap:11px;padding:13px 14px;border:1px solid var(--border);border-radius:12px">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+                  <div style="flex:1"><div style="font:var(--fw-semibold) 13px/1.2 var(--font-sans)">Riverside Hostel, Block C</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">Room 14 · call on arrival</div></div>
+                  <span style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--brand)">Change</span>
+                </div>
+              </sc-if>
+            </div>
+            <div style="flex-shrink:0;padding:14px 20px 18px;background:var(--surface-card);border-top:1px solid var(--border)">
+              <div style="display:flex;justify-content:space-between;font:var(--fw-regular) 13px/1.9 var(--font-sans);color:var(--text-secondary)"><span>Subtotal</span><span style="font-weight:600;color:var(--text-primary)">{{ subtotal }}</span></div>
+              <div style="display:flex;justify-content:space-between;font:var(--fw-regular) 13px/1.9 var(--font-sans);color:var(--text-secondary)"><span>Delivery fee</span><span style="font-weight:600;color:var(--text-primary)">{{ deliveryFee }}</span></div>
+              <div style="display:flex;justify-content:space-between;font:var(--fw-regular) 13px/1.9 var(--font-sans);color:var(--text-secondary)"><span>Service fee</span><span style="font-weight:600;color:var(--text-primary)">{{ serviceFee }}</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0 12px;padding-top:10px;border-top:1px dashed var(--border)"><span style="font:var(--fw-bold) 16px/1 var(--font-sans)">Total</span><span style="font:var(--fw-bold) 20px/1 var(--font-sans);color:var(--cc-amber-ink)">{{ total }}</span></div>
+              <button style="width:100%;height:52px;border-radius:var(--r-md);border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 16px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Place order</button>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">S4 · Cart <span style="color:var(--brand)">· steppers &amp; toggle are live</span></div>
+      </div>
+
+      <!-- S5 · ORDER HISTORY -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 14px"><span style="font:var(--fw-bold) 24px/1.1 var(--font-sans);letter-spacing:-.02em">Your orders</span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:0 20px">
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0418</span><span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--green-100);color:var(--success-ink)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg>Out for delivery</span></div>
+                <div style="font:var(--fw-semibold) 15px/1.3 var(--font-sans)">Beef shawarma +2 items</div>
+                <div style="font:var(--fw-regular) 13px/1.3 var(--font-sans);color:var(--text-muted);margin:3px 0 12px">Riverside Grill · today, 08:02</div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 16px/1 var(--font-sans);color:var(--cc-amber-ink)">K115.50</span><button style="height:38px;padding:0 16px;border-radius:999px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 13px/1 var(--font-sans);cursor:pointer">Track</button></div>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0390</span><span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--success-ink);color:#fff"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Delivered</span></div>
+                <div style="font:var(--fw-semibold) 15px/1.3 var(--font-sans)">Chips &amp; chicken, Fanta</div>
+                <div style="font:var(--fw-regular) 13px/1.3 var(--font-sans);color:var(--text-muted);margin:3px 0 12px">Riverside Grill · yesterday, 13:20</div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 16px/1 var(--font-sans);color:var(--cc-amber-ink)">K67.00</span><button style="height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 13px/1 var(--font-sans);cursor:pointer">Reorder</button></div>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0361</span><span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:999px;font:var(--fw-semibold) 12px/1 var(--font-sans);background:var(--critical-tint);color:var(--critical-ink)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Cancelled</span></div>
+                <div style="font:var(--fw-semibold) 15px/1.3 var(--font-sans)">A4 notebook ×2</div>
+                <div style="font:var(--fw-regular) 13px/1.3 var(--font-sans);color:var(--text-muted);margin:3px 0 12px">CBU Stationers · 2 Jul, 10:05</div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 16px/1 var(--font-sans);color:var(--text-muted);text-decoration:line-through">K70.00</span><button style="height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 13px/1 var(--font-sans);cursor:pointer">Reorder</button></div>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Home</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Orders</span></div>
+              <div style="flex:1;display:flex;justify-content:center"><div style="width:48px;height:48px;border-radius:16px;background:var(--brand);box-shadow:var(--elev-brand);display:flex;align-items:center;justify-content:center;margin-top:-24px"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h2.2l2.1 12.4a1.6 1.6 0 0 0 1.6 1.3h8.9a1.6 1.6 0 0 0 1.6-1.2L21.5 7H6"/><circle cx="9.5" cy="20.5" r="1.3" fill="#fff"/><circle cx="17.5" cy="20.5" r="1.3" fill="#fff"/></svg></div></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Track</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">S5 · Order history</div>
+      </div>
+
+      <!-- S6 · LIVE TRACKING + MAP -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:relative;z-index:3"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <!-- MAP -->
+            <div style="position:absolute;top:0;left:0;right:0;height:340px;background:#E8EDE9;overflow:hidden">
+              <svg width="322" height="340" viewBox="0 0 322 340" style="position:absolute;top:0;left:0"><rect width="322" height="340" fill="#E4EAE4"/><g stroke="#D2DAD2" stroke-width="8"><path d="M-10 90h342M-10 210h342M60 -10v360M210 -10v360"/></g><g stroke="#CBD8CC" stroke-width="14"><path d="M-10 150 L130 150 L130 300"/></g><path d="M96 250 C96 200 210 210 210 150 C210 110 245 110 245 92" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 9"/></svg>
+              <!-- shop pin -->
+              <div style="position:absolute;left:232px;top:74px;display:flex;flex-direction:column;align-items:center"><div style="width:34px;height:34px;border-radius:11px;background:var(--surface-card);box-shadow:var(--elev-2);display:flex;align-items:center;justify-content:center;border:2px solid var(--brand)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg></div></div>
+              <!-- courier pin (animated) -->
+              <div style="position:absolute;left:150px;top:150px;animation:ccPin 4s ease-in-out infinite"><div style="position:absolute;left:-13px;top:-13px;width:52px;height:52px;border-radius:99px;background:var(--brand);opacity:.25;animation:ccPing 2s ease-out infinite"></div><div style="width:40px;height:40px;border-radius:99px;background:var(--brand);box-shadow:var(--elev-brand);display:flex;align-items:center;justify-content:center;border:3px solid #fff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg></div></div>
+              <!-- dropoff pin -->
+              <div style="position:absolute;left:82px;top:230px;display:flex;flex-direction:column;align-items:center"><div style="width:34px;height:34px;border-radius:11px;background:var(--cc-amber);box-shadow:var(--elev-2);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--ink-900)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg></div></div>
+            </div>
+            <!-- SHEET -->
+            <div style="margin-top:auto;position:relative;z-index:2;background:var(--surface-card);border-radius:24px 24px 34px 34px;box-shadow:0 -6px 24px rgba(10,14,26,.1);padding:16px 20px 20px">
+              <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:0 auto 14px"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><span style="font:var(--fw-bold) 19px/1.1 var(--font-sans)">Arriving in ~8 min</span><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0418</span></div>
+              <div style="font:var(--fw-regular) 13px/1.3 var(--font-sans);color:var(--text-secondary);margin-bottom:16px">Chanda is on the way to Riverside Hostel</div>
+              <!-- stepper -->
+              <div style="display:flex;align-items:flex-start;margin-bottom:18px">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:26px;height:26px;border-radius:99px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span style="font:var(--fw-semibold) 10px/1.2 var(--font-sans);color:var(--text-primary);text-align:center">Placed</span></div>
+                <div style="flex-basis:0;height:2px;background:var(--brand);margin-top:13px;min-width:14px;flex-grow:1"></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:26px;height:26px;border-radius:99px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span style="font:var(--fw-semibold) 10px/1.2 var(--font-sans);color:var(--text-primary);text-align:center">Preparing</span></div>
+                <div style="flex-basis:0;height:2px;background:var(--brand);margin-top:13px;min-width:14px;flex-grow:1"></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:26px;height:26px;border-radius:99px;background:var(--brand);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--brand-fill)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg></div><span style="font:var(--fw-bold) 10px/1.2 var(--font-sans);color:var(--brand-deep);text-align:center">Out for delivery</span></div>
+                <div style="flex-basis:0;height:2px;background:var(--border);margin-top:13px;min-width:14px;flex-grow:1"></div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:26px;height:26px;border-radius:99px;background:var(--surface-inset);border:2px solid var(--border);display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span style="font:var(--fw-medium) 10px/1.2 var(--font-sans);color:var(--text-muted);text-align:center">Delivered</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--surface-bg);border-radius:14px">
+                <div style="width:44px;height:44px;border-radius:99px;background:var(--green-200);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--green-900)">CM</div>
+                <div style="flex:1"><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">Chanda Mwanza</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-mono);color:var(--text-muted);margin-top:2px">+260 966 512 083</div></div>
+                <div style="width:42px;height:42px;border-radius:12px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+                <div style="width:42px;height:42px;border-radius:12px;background:var(--surface-card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h8M8 14h5"/><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">S6 · Live tracking + map</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section data-screen-label="Courier flow" style="margin:64px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;font:var(--fw-bold) 15px/30px var(--font-sans);text-align:center">2</span>
+      <h2 style="font:var(--fw-bold) 26px/1.1 var(--font-sans);letter-spacing:-.02em;margin:0">Courier flow</h2>
+    </div>
+    <p style="font:var(--fw-regular) 15px/1.5 var(--font-sans);color:var(--text-secondary);margin:0 0 30px 44px;max-width:560px">Student couriers go online, accept nearby jobs, run pickup-to-dropoff, and cash out earnings via mobile money.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:44px 34px">
+
+      <!-- C1 · AVAILABILITY (interactive toggle) -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:8px 20px 20px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+                <div style="display:flex;align-items:center;gap:11px"><div style="width:46px;height:46px;border-radius:99px;background:var(--green-200);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--green-900)">CM</div><div><div style="font:var(--fw-bold) 16px/1.2 var(--font-sans)">Chanda Mwanza</div><div style="font:var(--fw-medium) 12px/1 var(--font-sans);color:var(--text-secondary);margin-top:2px">Motorbike courier</div></div></div>
+                <span style="{{ statusChipStyle }}"><span style="width:8px;height:8px;border-radius:99px;background:currentColor"></span>{{ onlineWord }}</span>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:var(--elev-1);display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:16px">
+                <div style="font:var(--fw-bold) 20px/1.2 var(--font-sans);margin-bottom:4px">{{ onlineLabel }}</div>
+                <div style="font:var(--fw-regular) 13px/1.4 var(--font-sans);color:var(--text-secondary);margin-bottom:20px">{{ onlineSub }}</div>
+                <div onClick="{{ toggleOnline }}" style="{{ trackStyle }}"><span style="width:26px;height:26px;border-radius:99px;background:#fff;box-shadow:var(--elev-1)"></span></div>
+                <div style="font:var(--fw-semibold) 12px/1 var(--font-sans);color:var(--text-muted);margin-top:12px">Tap to toggle</div>
+              </div>
+              <!-- verification pending banner -->
+              <div style="display:flex;gap:12px;padding:15px;background:var(--amber-050);border:1px solid var(--amber-100);border-radius:14px;margin-bottom:16px">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                <div><div style="font:var(--fw-semibold) 13px/1.3 var(--font-sans);color:var(--amber-600)">Verification pending</div><div style="font:var(--fw-regular) 12px/1.4 var(--font-sans);color:var(--text-secondary);margin-top:3px">Your NRC and student ID are under review. You can go online once approved — usually within a day.</div></div>
+              </div>
+              <div style="display:flex;gap:12px;margin-top:auto">
+                <div style="flex:1;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:14px"><div style="font:var(--fw-bold) 20px/1 var(--font-sans);color:var(--cc-amber-ink)">K840</div><div style="font:var(--fw-medium) 11px/1.3 var(--font-sans);color:var(--text-muted);margin-top:4px">This week</div></div>
+                <div style="flex:1;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:14px"><div style="font:var(--fw-bold) 20px/1 var(--font-sans)">23</div><div style="font:var(--fw-medium) 11px/1.3 var(--font-sans);color:var(--text-muted);margin-top:4px">Deliveries</div></div>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13v9H3z"/><path d="M16 9h3l2 3v3h-5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Jobs</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Active</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Earnings</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">C1 · Availability <span style="color:var(--brand)">· toggle is live</span></div>
+      </div>
+
+      <!-- C2 · JOB LIST -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 12px;display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 24px/1.1 var(--font-sans);letter-spacing:-.02em">Nearby jobs</span><span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:var(--green-100);color:var(--success-ink);font:var(--fw-semibold) 12px/1 var(--font-sans)"><span style="width:8px;height:8px;border-radius:99px;background:var(--green-600)"></span>Online</span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:0 20px 12px">
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);border-left:4px solid var(--cc-amber)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="display:flex;align-items:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg><span style="font:var(--fw-semibold) 14px/1 var(--font-sans)">Riverside Grill</span></div><span style="font:var(--fw-bold) 17px/1 var(--font-sans);color:var(--cc-amber-ink)">K18.00</span></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="width:8px;height:8px;border-radius:99px;background:var(--brand);flex-shrink:0"></span><span style="font:var(--fw-medium) 13px/1.3 var(--font-sans);color:var(--text-secondary)">Pick up · Food Court, Great East Rd</span></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="width:8px;height:8px;border-radius:2px;background:var(--cc-amber);flex-shrink:0"></span><span style="font:var(--fw-medium) 13px/1.3 var(--font-sans);color:var(--text-secondary)">Drop off · Riverside Hostel, Block C</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-regular) 12px/1 var(--font-sans);color:var(--text-muted)">1.4 km · ~9 min</span><button style="height:40px;padding:0 20px;border-radius:999px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 13px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Accept job</button></div>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="display:flex;align-items:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg><span style="font:var(--fw-semibold) 14px/1 var(--font-sans)">Mama Nkoloso Tuck Shop</span></div><span style="font:var(--fw-bold) 17px/1 var(--font-sans);color:var(--cc-amber-ink)">K12.00</span></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="width:8px;height:8px;border-radius:99px;background:var(--brand);flex-shrink:0"></span><span style="font:var(--fw-medium) 13px/1.3 var(--font-sans);color:var(--text-secondary)">Pick up · Student Centre kiosk</span></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="width:8px;height:8px;border-radius:2px;background:var(--cc-amber);flex-shrink:0"></span><span style="font:var(--fw-medium) 13px/1.3 var(--font-sans);color:var(--text-secondary)">Drop off · School of Mines, Room 6</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-regular) 12px/1 var(--font-sans);color:var(--text-muted)">0.8 km · ~5 min</span><button style="height:40px;padding:0 20px;border-radius:999px;border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 13px/1 var(--font-sans);cursor:pointer">Accept job</button></div>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="display:flex;align-items:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg><span style="font:var(--fw-semibold) 14px/1 var(--font-sans)">CBU Stationers</span></div><span style="font:var(--fw-bold) 17px/1 var(--font-sans);color:var(--cc-amber-ink)">K15.00</span></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="width:8px;height:8px;border-radius:99px;background:var(--brand);flex-shrink:0"></span><span style="font:var(--fw-medium) 13px/1.3 var(--font-sans);color:var(--text-secondary)">Pick up · Library concourse</span></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px"><span style="width:8px;height:8px;border-radius:2px;background:var(--cc-amber);flex-shrink:0"></span><span style="font:var(--fw-medium) 13px/1.3 var(--font-sans);color:var(--text-secondary)">Drop off · Kwacha Hostel, Block A</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-regular) 12px/1 var(--font-sans);color:var(--text-muted)">2.1 km · ~13 min</span><button style="height:40px;padding:0 20px;border-radius:999px;border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 13px/1 var(--font-sans);cursor:pointer">Accept job</button></div>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13v9H3z"/><path d="M16 9h3l2 3v3h-5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Jobs</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Active</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Earnings</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">C2 · Available jobs</div>
+      </div>
+
+      <!-- C3 · ACTIVE DELIVERY -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:relative;z-index:3"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="position:absolute;top:0;left:0;right:0;height:250px;background:#E4EAE4;overflow:hidden"><svg width="322" height="250" viewBox="0 0 322 250" style="position:absolute;top:0;left:0"><rect width="322" height="250" fill="#E4EAE4"/><g stroke="#D2DAD2" stroke-width="8"><path d="M-10 70h342M-10 170h342M90 -10v270M220 -10v270"/></g><path d="M70 200 C120 160 180 170 220 110" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 9"/></svg><div style="position:absolute;left:206px;top:92px;width:34px;height:34px;border-radius:11px;background:var(--surface-card);box-shadow:var(--elev-2);display:flex;align-items:center;justify-content:center;border:2px solid var(--brand)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg></div><div style="position:absolute;left:56px;top:184px;width:38px;height:38px;border-radius:99px;background:var(--brand);box-shadow:var(--elev-brand);display:flex;align-items:center;justify-content:center;border:3px solid #fff"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg></div></div>
+            <div style="margin-top:auto;position:relative;z-index:2;background:var(--surface-card);border-radius:24px 24px 34px 34px;box-shadow:0 -6px 24px rgba(10,14,26,.1);padding:16px 20px 20px">
+              <div style="width:40px;height:4px;border-radius:99px;background:var(--border);margin:0 auto 14px"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:var(--urgent-tint);color:var(--urgent-ink);font:var(--fw-semibold) 12px/1 var(--font-sans)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Heading to pickup</span><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0418</span></div>
+              <div style="display:flex;flex-direction:column;gap:0;margin-bottom:16px">
+                <div style="display:flex;gap:12px;align-items:flex-start"><div style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:99px;background:var(--brand);border:3px solid var(--brand-fill)"></span><span style="width:2px;height:34px;background:var(--border)"></span></div><div style="padding-bottom:6px"><div style="font:var(--fw-regular) 11px/1 var(--font-sans);color:var(--text-muted);margin-bottom:2px">PICKUP</div><div style="font:var(--fw-semibold) 14px/1.25 var(--font-sans)">Riverside Grill · Food Court</div></div></div>
+                <div style="display:flex;gap:12px;align-items:flex-start"><div style="display:flex;flex-direction:column;align-items:center"><span style="width:12px;height:12px;border-radius:3px;background:var(--cc-amber)"></span></div><div><div style="font:var(--fw-regular) 11px/1 var(--font-sans);color:var(--text-muted);margin-bottom:2px">DROPOFF</div><div style="font:var(--fw-semibold) 14px/1.25 var(--font-sans)">Riverside Hostel, Block C · Rm 14</div></div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--surface-bg);border-radius:14px;margin-bottom:16px">
+                <div style="width:42px;height:42px;border-radius:99px;background:var(--amber-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 14px/1 var(--font-sans);color:var(--amber-600)">TP</div>
+                <div style="flex:1"><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">Temwani Phiri</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-mono);color:var(--text-muted);margin-top:2px">+260 977 234 190</div></div>
+                <div style="width:40px;height:40px;border-radius:12px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+              </div>
+              <div style="display:flex;gap:10px">
+                <button style="flex:1;height:52px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Navigate</button>
+                <button style="flex:2;height:52px;border-radius:var(--r-md);border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 15px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Picked up — start delivery</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">C3 · Active delivery</div>
+      </div>
+
+      <!-- C4 · EARNINGS -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 14px"><span style="font:var(--fw-bold) 24px/1.1 var(--font-sans);letter-spacing:-.02em">Earnings</span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:0 20px">
+              <div style="background:var(--green-800);border-radius:20px;padding:20px;box-shadow:var(--elev-brand);margin-bottom:14px;position:relative;overflow:hidden">
+                <div style="position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:99px;background:rgba(255,255,255,.06)"></div>
+                <div style="font:var(--fw-medium) 13px/1 var(--font-sans);color:var(--green-200);margin-bottom:8px">Available to withdraw</div>
+                <div style="font:var(--fw-bold) 34px/1 var(--font-sans);color:#fff;margin-bottom:16px">K420.00</div>
+                <button style="height:44px;width:100%;border-radius:12px;border:none;background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 14px/1 var(--font-sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>Cash out to MTN Money</button>
+              </div>
+              <div style="display:flex;gap:12px;margin-bottom:18px">
+                <div style="flex:1;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:14px"><div style="font:var(--fw-medium) 11px/1.3 var(--font-sans);color:var(--text-muted);margin-bottom:6px">Pending</div><div style="font:var(--fw-bold) 19px/1 var(--font-sans);color:var(--amber-600)">K85.00</div></div>
+                <div style="flex:1;background:var(--surface-card);border:1px solid var(--border);border-radius:14px;padding:14px"><div style="font:var(--fw-medium) 11px/1.3 var(--font-sans);color:var(--text-muted);margin-bottom:6px">Settled (wk)</div><div style="font:var(--fw-bold) 19px/1 var(--font-sans);color:var(--success-ink)">K755.00</div></div>
+              </div>
+              <div style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:10px">Recent payments</div>
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-faint)"><div style="width:38px;height:38px;border-radius:11px;background:var(--green-100);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><div style="flex:1"><div style="font:var(--fw-semibold) 13px/1.2 var(--font-sans)">CC-2026-0418</div><div style="font:var(--fw-regular) 11px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">Today · settled</div></div><span style="font:var(--fw-bold) 14px/1 var(--font-sans);color:var(--success-ink)">+K18.00</span></div>
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-faint)"><div style="width:38px;height:38px;border-radius:11px;background:var(--urgent-tint);display:flex;align-items:center;justify-content:center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--urgent-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div style="flex:1"><div style="font:var(--fw-semibold) 13px/1.2 var(--font-sans)">CC-2026-0417</div><div style="font:var(--fw-regular) 11px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">Today · pending</div></div><span style="font:var(--fw-bold) 14px/1 var(--font-sans);color:var(--amber-600)">+K12.00</span></div>
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 0"><div style="width:38px;height:38px;border-radius:11px;background:var(--green-100);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><div style="flex:1"><div style="font:var(--fw-semibold) 13px/1.2 var(--font-sans)">CC-2026-0402</div><div style="font:var(--fw-regular) 11px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">Yesterday · settled</div></div><span style="font:var(--fw-bold) 14px/1 var(--font-sans);color:var(--success-ink)">+K20.00</span></div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13v9H3z"/><path d="M16 9h3l2 3v3h-5"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Jobs</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Active</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Earnings</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">C4 · Earnings &amp; payout</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section data-screen-label="Shop admin flow" style="margin:64px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;font:var(--fw-bold) 15px/30px var(--font-sans);text-align:center">3</span>
+      <h2 style="font:var(--fw-bold) 26px/1.1 var(--font-sans);letter-spacing:-.02em;margin:0">Shop admin flow</h2>
+    </div>
+    <p style="font:var(--fw-regular) 15px/1.5 var(--font-sans);color:var(--text-secondary);margin:0 0 30px 44px;max-width:560px">Vendors switch between shops, work an incoming-order queue whose action button changes with status, and keep the catalog and stock current.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:44px 34px">
+
+      <!-- A1 · SHOP SWITCHER -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:6px 20px 20px">
+              <div style="font:var(--fw-regular) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:4px">Signed in as</div>
+              <div style="font:var(--fw-bold) 22px/1.1 var(--font-sans);letter-spacing:-.02em;margin-bottom:20px">Bwalya Chanda</div>
+              <div style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:12px">Your shops</div>
+              <!-- active shop -->
+              <div style="background:var(--surface-card);border:2px solid var(--brand);border-radius:16px;padding:15px;box-shadow:var(--elev-1);margin-bottom:12px">
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;border-radius:13px;background:var(--amber-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 16px/1 var(--font-display);color:var(--amber-600)">RG</div><div style="flex:1"><div style="font:var(--fw-semibold) 15px/1.2 var(--font-sans)">Riverside Grill</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">Food Court · open</div></div><div style="width:24px;height:24px;border-radius:99px;background:var(--brand);display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div></div>
+                <div style="display:flex;gap:8px;margin-top:14px"><div style="flex:1;background:var(--surface-bg);border-radius:10px;padding:9px 11px"><div style="font:var(--fw-bold) 16px/1 var(--font-sans);color:var(--cc-amber-ink)">6</div><div style="font:var(--fw-medium) 10px/1.2 var(--font-sans);color:var(--text-muted);margin-top:3px">New orders</div></div><div style="flex:1;background:var(--surface-bg);border-radius:10px;padding:9px 11px"><div style="font:var(--fw-bold) 16px/1 var(--font-sans)">K1,240</div><div style="font:var(--fw-medium) 10px/1.2 var(--font-sans);color:var(--text-muted);margin-top:3px">Today</div></div></div>
+              </div>
+              <!-- other shop -->
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:12px">
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;border-radius:13px;background:var(--blue-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 16px/1 var(--font-display);color:var(--blue-600)">MN</div><div style="flex:1"><div style="font:var(--fw-semibold) 15px/1.2 var(--font-sans)">Mama Nkoloso Tuck Shop</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">Student Centre · open</div></div><span style="min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 11px/22px var(--font-sans);text-align:center">2</span></div>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:auto">
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:48px;height:48px;border-radius:13px;background:var(--green-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 16px/1 var(--font-display);color:var(--green-800)">KB</div><div style="flex:1"><div style="font:var(--fw-semibold) 15px/1.2 var(--font-sans)">Kwacha Bakery</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">Main Gate · closed</div></div></div>
+              </div>
+              <button style="height:50px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-card);color:var(--brand-deep);font:var(--fw-semibold) 15px/1 var(--font-sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Add another shop</button>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">A1 · Shop switcher</div>
+      </div>
+
+      <!-- A2 · ORDERS QUEUE (contextual actions) -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:2px"><div style="width:26px;height:26px;border-radius:8px;background:var(--amber-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 11px/1 var(--font-display);color:var(--amber-600)">RG</div><span style="font:var(--fw-bold) 20px/1.1 var(--font-sans)">Riverside Grill</span></div><div style="font:var(--fw-regular) 12px/1 var(--font-sans);color:var(--text-muted);padding-left:34px">Incoming orders · 6 active</div></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:0 20px 12px">
+              <!-- order: new -> accept & prepare -->
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);border-left:4px solid var(--info)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0421</span><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:var(--fw-semibold) 11px/1 var(--font-sans);background:var(--info-tint);color:var(--info-ink)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>New</span></div>
+                <div style="font:var(--fw-semibold) 14px/1.3 var(--font-sans)">2× Beef shawarma, 1× Chips</div>
+                <div style="font:var(--fw-regular) 12px/1.3 var(--font-sans);color:var(--text-muted);margin:3px 0 12px">Temwani P. · delivery · K115.50</div>
+                <button style="width:100%;height:44px;border-radius:12px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 14px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Accept &amp; prepare</button>
+              </div>
+              <!-- order: preparing -> mark ready -->
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);border-left:4px solid var(--urgent)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0419</span><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:var(--fw-semibold) 11px/1 var(--font-sans);background:var(--urgent-tint);color:var(--urgent-ink)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Preparing</span></div>
+                <div style="font:var(--fw-semibold) 14px/1.3 var(--font-sans)">1× Chicken &amp; nshima</div>
+                <div style="font:var(--fw-regular) 12px/1.3 var(--font-sans);color:var(--text-muted);margin:3px 0 12px">Mulenga K. · pickup · K48.00</div>
+                <button style="width:100%;height:44px;border-radius:12px;border:none;background:var(--cc-amber);color:var(--ink-900);font:var(--fw-bold) 14px/1 var(--font-sans);cursor:pointer">Mark ready</button>
+              </div>
+              <!-- order: ready delivery -> dispatch courier -->
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);border-left:4px solid var(--accent)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0418</span><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:var(--fw-semibold) 11px/1 var(--font-sans);background:var(--accent-tint);color:var(--accent-ink)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ready</span></div>
+                <div style="font:var(--fw-semibold) 14px/1.3 var(--font-sans)">2× Beef shawarma +1</div>
+                <div style="font:var(--fw-regular) 12px/1.3 var(--font-sans);color:var(--text-muted);margin:3px 0 12px">Temwani P. · delivery · K115.50</div>
+                <button style="width:100%;height:44px;border-radius:12px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 14px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg>Dispatch courier</button>
+              </div>
+              <!-- order: ready pickup -> mark collected -->
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);border-left:4px solid var(--accent)">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font:var(--fw-medium) 12px/1 var(--font-mono);color:var(--text-muted)">CC-2026-0416</span><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:var(--fw-semibold) 11px/1 var(--font-sans);background:var(--accent-tint);color:var(--accent-ink)">Ready · pickup</span></div>
+                <div style="font:var(--fw-semibold) 14px/1.3 var(--font-sans)">3× Vetkoek</div>
+                <div style="font:var(--fw-regular) 12px/1.3 var(--font-sans);color:var(--text-muted);margin:3px 0 12px">Chipo M. · pickup · K21.00</div>
+                <button style="width:100%;height:44px;border-radius:12px;border:1px solid var(--brand);background:var(--brand-fill);color:var(--brand-deep);font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Mark collected</button>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Orders</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Catalog</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21v-6h6v6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Shops</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">A2 · Orders queue <span style="color:var(--brand)">· contextual actions</span></div>
+      </div>
+
+      <!-- A3 · CATALOG MANAGEMENT (interactive stock) -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 12px;display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-bold) 24px/1.1 var(--font-sans);letter-spacing:-.02em">Catalog</span><span style="display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;background:var(--brand);color:#fff;font:var(--fw-semibold) 13px/1 var(--font-sans)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add</span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:0 20px">
+              <!-- add-product form preview -->
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);margin-bottom:16px">
+                <div style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:12px">New product</div>
+                <div style="display:flex;gap:11px;margin-bottom:11px"><div style="width:56px;height:56px;border-radius:12px;background:var(--surface-inset);border:1.5px dashed var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5L9 20"/></svg></div><div style="flex:1;display:flex;flex-direction:column;gap:9px"><div style="height:38px;border-radius:10px;border:1.5px solid var(--border);display:flex;align-items:center;padding:0 12px;font:var(--fw-medium) 13px/1 var(--font-sans);color:var(--text-primary)">Grilled chicken wrap</div><div style="height:38px;border-radius:10px;border:1.5px solid var(--brand);box-shadow:0 0 0 3px var(--focus-ring);display:flex;align-items:center;padding:0 12px;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--cc-amber-ink)">K52.00</div></div></div>
+                <button style="width:100%;height:42px;border-radius:10px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Save product</button>
+              </div>
+              <div style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:12px">Stock levels <span style="color:var(--brand)">· tap ± to adjust</span></div>
+              <sc-for list="{{ stockItems }}" as="item" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-faint)">
+                  <div style="width:44px;height:44px;border-radius:11px;background:var(--surface-inset);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></div>
+                  <div style="flex:1;min-width:0"><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">{{ item.name }}</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><span style="{{ item.dotStyle }}"></span><span style="{{ item.labelStyle }}">{{ item.qtyLabel }}</span><span style="font:var(--fw-medium) 12px/1 var(--font-sans);color:var(--text-muted)">· {{ item.price }}</span></div></div>
+                  <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;flex-shrink:0">
+                    <span onClick="{{ item.dec }}" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--brand-deep);cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg></span>
+                    <span style="min-width:30px;text-align:center;font:var(--fw-bold) 14px/1 var(--font-sans)">{{ item.qty }}</span>
+                    <span onClick="{{ item.inc }}" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--brand);border-radius:99px;color:#fff;cursor:pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Orders</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Catalog</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21v-6h6v6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Shops</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">A3 · Catalog &amp; stock <span style="color:var(--brand)">· ± is live</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section data-screen-label="Platform admin flow" style="margin:64px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+      <span style="width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;font:var(--fw-bold) 15px/30px var(--font-sans);text-align:center">4</span>
+      <h2 style="font:var(--fw-bold) 26px/1.1 var(--font-sans);letter-spacing:-.02em;margin:0">Platform admin flow</h2>
+    </div>
+    <p style="font:var(--fw-regular) 15px/1.5 var(--font-sans);color:var(--text-secondary);margin:0 0 30px 44px;max-width:560px">The operator verifies couriers, settles mobile-money payouts grouped by courier, and onboards new campus shops.</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:44px 34px">
+
+      <!-- P1 · COURIER VERIFICATION -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 12px"><span style="font:var(--fw-bold) 24px/1.1 var(--font-sans);letter-spacing:-.02em">Courier verification</span><div style="font:var(--fw-regular) 12px/1 var(--font-sans);color:var(--text-muted);margin-top:4px">3 awaiting review</div></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:0 20px 12px">
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="width:46px;height:46px;border-radius:99px;background:var(--violet-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--violet-600)">MP</div><div style="flex:1"><div style="font:var(--fw-semibold) 15px/1.2 var(--font-sans)">Mutale Phiri</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-mono);color:var(--text-muted);margin-top:2px">+260 966 341 872</div></div></div>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+                  <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-regular) 13px/1 var(--font-sans);color:var(--text-secondary)">Vehicle</span><span style="display:inline-flex;align-items:center;gap:6px;font:var(--fw-semibold) 13px/1 var(--font-sans)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="18" r="2.6"/><path d="M6 18h6l3-8h3M9 10h4"/></svg>Motorbike</span></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-regular) 13px/1 var(--font-sans);color:var(--text-secondary)">NRC</span><span style="display:inline-flex;align-items:center;gap:6px;font:var(--fw-medium) 13px/1 var(--font-mono)">245871/68/1 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--success-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--fw-regular) 13px/1 var(--font-sans);color:var(--text-secondary)">Documents</span><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:999px;font:var(--fw-semibold) 11px/1 var(--font-sans);background:var(--green-100);color:var(--success-ink)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>NRC + student ID</span></div>
+                </div>
+                <div style="display:flex;gap:10px"><button style="flex:1;height:44px;border-radius:12px;border:1px solid var(--critical);background:var(--surface-card);color:var(--critical-ink);font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Reject</button><button style="flex:2;height:44px;border-radius:12px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 14px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/></svg>Approve</button></div>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="width:46px;height:46px;border-radius:99px;background:var(--amber-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 15px/1 var(--font-sans);color:var(--amber-600)">JB</div><div style="flex:1"><div style="font:var(--fw-semibold) 15px/1.2 var(--font-sans)">Joseph Banda</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-mono);color:var(--text-muted);margin-top:2px">+260 977 108 449</div></div></div>
+                <div style="display:flex;gap:12px;padding:11px 13px;background:var(--amber-050);border:1px solid var(--amber-100);border-radius:12px;margin-bottom:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber-600)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg><div><div style="font:var(--fw-semibold) 12px/1.3 var(--font-sans);color:var(--amber-600)">NRC photo unclear</div><div style="font:var(--fw-regular) 12px/1.3 var(--font-sans);color:var(--text-secondary);margin-top:2px">Bicycle · NRC 388120/72/1 · student ID missing</div></div></div>
+                <div style="display:flex;gap:10px"><button style="flex:1;height:44px;border-radius:12px;border:1px solid var(--critical);background:var(--surface-card);color:var(--critical-ink);font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Reject</button><button style="flex:2;height:44px;border-radius:12px;border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 14px/1 var(--font-sans);cursor:pointer">Request re-upload</button></div>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Couriers</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Payouts</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21v-6h6v6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Shops</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">P1 · Courier verification</div>
+      </div>
+
+      <!-- P2 · PAYOUTS -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 14px"><span style="font:var(--fw-bold) 24px/1.1 var(--font-sans);letter-spacing:-.02em">Pending payouts</span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:0 20px">
+              <div style="display:flex;align-items:center;justify-content:space-between;background:var(--green-050);border:1px solid var(--green-100);border-radius:14px;padding:13px 15px;margin-bottom:16px">
+                <div><div style="font:var(--fw-regular) 12px/1 var(--font-sans);color:var(--success-ink)">Total outstanding</div><div style="font:var(--fw-bold) 22px/1.1 var(--font-sans);color:var(--success-ink);margin-top:3px">K1,240.00</div></div>
+                <button style="height:40px;padding:0 16px;border-radius:11px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 13px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Settle all</button>
+              </div>
+              <div style="font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:10px">By courier</div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);margin-bottom:12px">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:99px;background:var(--green-200);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 14px/1 var(--font-sans);color:var(--green-900)">CM</div><div style="flex:1"><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">Chanda Mwanza</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">7 deliveries · MTN Money</div></div><span style="font:var(--fw-bold) 18px/1 var(--font-sans);color:var(--cc-amber-ink)">K420.00</span></div>
+                <button style="width:100%;height:44px;border-radius:12px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 14px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>Settle K420.00</button>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1);margin-bottom:12px">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="width:42px;height:42px;border-radius:99px;background:var(--violet-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 14px/1 var(--font-sans);color:var(--violet-600)">MP</div><div style="flex:1"><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">Mutale Phiri</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">9 deliveries · Airtel Money</div></div><span style="font:var(--fw-bold) 18px/1 var(--font-sans);color:var(--cc-amber-ink)">K535.00</span></div>
+                <button style="width:100%;height:44px;border-radius:12px;border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 14px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>Settle K535.00</button>
+              </div>
+              <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:var(--elev-1)">
+                <div style="display:flex;align-items:center;gap:12px"><div style="width:42px;height:42px;border-radius:99px;background:var(--blue-100);display:flex;align-items:center;justify-content:center;font:var(--fw-bold) 14px/1 var(--font-sans);color:var(--blue-600)">NL</div><div style="flex:1"><div style="font:var(--fw-semibold) 14px/1.2 var(--font-sans)">Natasha Lungu</div><div style="font:var(--fw-regular) 12px/1.2 var(--font-sans);color:var(--text-muted);margin-top:2px">5 deliveries · MTN Money</div></div><div style="text-align:right"><span style="font:var(--fw-bold) 18px/1 var(--font-sans);color:var(--cc-amber-ink)">K285.00</span><div style="display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:999px;background:var(--urgent-tint);color:var(--urgent-ink);font:var(--fw-semibold) 11px/1 var(--font-sans);margin-top:6px">Pending</div></div></div>
+              </div>
+            </div>
+            <div style="flex-shrink:0;display:flex;align-items:flex-end;justify-content:space-around;height:64px;background:var(--surface-card);border-top:1px solid var(--border);padding:8px 6px 10px">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Couriers</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--brand);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span style="font:var(--fw-semibold) 10px/1 var(--font-sans)">Payouts</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7l9-4 9 4v14"/><path d="M9 21v-6h6v6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Shops</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--text-muted);flex:1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 10px/1 var(--font-sans)">Profile</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">P2 · Pending payouts</div>
+      </div>
+
+      <!-- P3 · SHOP ONBOARDING -->
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;width:344px">
+        <div style="width:344px;background:var(--ink-900);border-radius:44px;padding:11px;box-shadow:var(--elev-3)">
+          <div style="width:322px;height:698px;background:var(--surface-bg);border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative">
+            <div style="height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 20px"><span style="font:var(--fw-bold) 13px/1 var(--font-sans)">08:15</span><span style="display:flex;gap:6px;align-items:center"><svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.4"/><rect x="3" y="3" width="14" height="6" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg></span></div>
+            <div style="flex-shrink:0;padding:4px 20px 12px;display:flex;align-items:center;gap:12px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg><span style="font:var(--fw-bold) 20px/1 var(--font-sans)">Onboard a shop</span></div>
+            <div style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding:0 20px 8px">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px"><span style="width:26px;height:26px;border-radius:99px;background:var(--brand);color:#fff;font:var(--fw-bold) 12px/26px var(--font-sans);text-align:center">1</span><span style="flex:1;height:3px;border-radius:99px;background:var(--brand)"></span><span style="width:26px;height:26px;border-radius:99px;background:var(--brand);color:#fff;font:var(--fw-bold) 12px/26px var(--font-sans);text-align:center">2</span><span style="flex:1;height:3px;border-radius:99px;background:var(--border)"></span><span style="width:26px;height:26px;border-radius:99px;background:var(--surface-inset);border:2px solid var(--border);color:var(--text-muted);font:var(--fw-bold) 12px/22px var(--font-sans);text-align:center">3</span></div>
+              <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:7px">Shop name</span>
+              <div style="display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:var(--r-md);background:var(--surface-card);border:1.5px solid var(--border);margin-bottom:14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v10h16V9M4 9h16"/></svg><span style="font:var(--fw-medium) 15px/1 var(--font-sans)">Copper Café</span></div>
+              <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:7px">Owner &amp; phone</span>
+              <div style="display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:var(--r-md);background:var(--surface-card);border:1.5px solid var(--brand);box-shadow:0 0 0 3px var(--focus-ring);margin-bottom:14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span style="font:var(--fw-medium) 15px/1 var(--font-mono)">Grace Zulu · +260 955 720 118</span></div>
+              <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:7px">Campus location</span>
+              <div style="display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:var(--r-md);background:var(--surface-card);border:1.5px solid var(--border);margin-bottom:14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a7 7 0 0 1 14 0c0 5.6-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg><span style="font:var(--fw-medium) 15px/1 var(--font-sans)">Library concourse</span></div>
+              <span style="display:block;font:var(--fw-semibold) 13px/1 var(--font-sans);color:var(--text-secondary);margin-bottom:9px">Category</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap"><span style="height:34px;padding:0 14px;display:flex;align-items:center;border-radius:999px;background:var(--brand);color:#fff;font:var(--fw-semibold) 13px/1 var(--font-sans)">Food &amp; drinks</span><span style="height:34px;padding:0 14px;display:flex;align-items:center;border-radius:999px;background:var(--surface-card);border:1px solid var(--border);color:var(--text-secondary);font:var(--fw-semibold) 13px/1 var(--font-sans)">Groceries</span><span style="height:34px;padding:0 14px;display:flex;align-items:center;border-radius:999px;background:var(--surface-card);border:1px solid var(--border);color:var(--text-secondary);font:var(--fw-semibold) 13px/1 var(--font-sans)">Stationery</span></div>
+            </div>
+            <div style="flex-shrink:0;padding:12px 20px 20px;background:var(--surface-card);border-top:1px solid var(--border);display:flex;gap:10px"><button style="flex:1;height:52px;border-radius:var(--r-md);border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font:var(--fw-semibold) 15px/1 var(--font-sans);cursor:pointer">Back</button><button style="flex:2;height:52px;border-radius:var(--r-md);border:none;background:var(--brand);color:#fff;font:var(--fw-semibold) 15px/1 var(--font-sans);box-shadow:var(--elev-brand);cursor:pointer">Continue</button></div>
+          </div>
+        </div>
+        <div style="font:var(--fw-bold) 12px/1.4 var(--font-sans);letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-muted);text-align:center">P3 · Shop onboarding</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!--INSERT-->
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    cart: { shawarma: 1, chips: 2, coke: 1 },
+    mode: 'delivery',
+    online: false,
+    stock: { maheu: 24, bun: 8, airtime: 120 },
+  };
+  fmt(n) { return 'K' + n.toFixed(2); }
+  renderVals() {
+    const P = { shawarma: 45, chips: 27.5, coke: 12.5 };
+    const N = { shawarma: 'Beef shawarma', chips: 'Chips & quarter chicken', coke: 'Coca-Cola 500ml' };
+    const SHOP = { shawarma: 'Riverside Grill', chips: 'Riverside Grill', coke: 'Mama Nkoloso Tuck Shop' };
+    const cart = this.state.cart;
+    const mk = (k) => ({
+      id: k, name: N[k], shop: SHOP[k], unit: this.fmt(P[k]), qty: cart[k],
+      line: this.fmt(P[k] * cart[k]),
+      inc: () => this.setState(s => ({ cart: { ...s.cart, [k]: s.cart[k] + 1 } })),
+      dec: () => this.setState(s => ({ cart: { ...s.cart, [k]: Math.max(1, s.cart[k] - 1) } })),
+    });
+    const cartItems = Object.keys(cart).map(mk);
+    const subtotalNum = Object.keys(cart).reduce((a, k) => a + P[k] * cart[k], 0);
+    const deliveryFee = this.state.mode === 'delivery' ? 15 : 0;
+    const serviceFee = 5;
+    const total = subtotalNum + deliveryFee + serviceFee;
+    const itemCount = Object.values(cart).reduce((a, b) => a + b, 0);
+
+    const segBase = { flex: '1', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '7px', height: '46px', borderRadius: '11px', border: 'none', cursor: 'pointer', font: 'var(--fw-semibold) 14px/1 var(--font-sans)', transition: 'all var(--dur-fast)' };
+    const segOn = { ...segBase, background: 'var(--surface-card)', color: 'var(--brand-deep)', boxShadow: 'var(--elev-1)' };
+    const segOff = { ...segBase, background: 'transparent', color: 'var(--text-secondary)' };
+
+    const stockDefs = { maheu: { name: 'Maheu 500ml', price: 'K8.00' }, bun: { name: 'Chibuku scone bun', price: 'K5.50' }, airtime: { name: 'Airtel airtime — K10', price: 'K10.00' } };
+    const stockItems = Object.keys(this.state.stock).map(k => {
+      const q = this.state.stock[k];
+      const tone = q === 0 ? 'out' : q <= 10 ? 'low' : 'ok';
+      return {
+        id: k, name: stockDefs[k].name, price: stockDefs[k].price, qty: q,
+        qtyLabel: q === 0 ? 'Out of stock' : q + ' in stock',
+        dotStyle: { width: '8px', height: '8px', borderRadius: '999px', background: tone === 'out' ? 'var(--coral-500)' : tone === 'low' ? 'var(--amber-500)' : 'var(--green-600)' },
+        labelStyle: { font: 'var(--fw-semibold) 12px/1 var(--font-sans)', color: tone === 'out' ? 'var(--coral-600)' : tone === 'low' ? 'var(--amber-600)' : 'var(--text-secondary)' },
+        inc: () => this.setState(s => ({ stock: { ...s.stock, [k]: s.stock[k] + 1 } })),
+        dec: () => this.setState(s => ({ stock: { ...s.stock, [k]: Math.max(0, s.stock[k] - 1) } })),
+      };
+    });
+
+    return {
+      cartItems, itemCount,
+      subtotal: this.fmt(subtotalNum),
+      deliveryFee: deliveryFee ? this.fmt(deliveryFee) : 'Free',
+      serviceFee: this.fmt(serviceFee),
+      total: this.fmt(total),
+      isDelivery: this.state.mode === 'delivery',
+      delivStyle: this.state.mode === 'delivery' ? segOn : segOff,
+      pickStyle: this.state.mode === 'pickup' ? segOn : segOff,
+      setDelivery: () => this.setState({ mode: 'delivery' }),
+      setPickup: () => this.setState({ mode: 'pickup' }),
+      online: this.state.online,
+      onlineWord: this.state.online ? 'Online' : 'Offline',
+      onlineLabel: this.state.online ? 'You\u2019re online' : 'You\u2019re offline',
+      onlineSub: this.state.online ? 'Receiving delivery jobs near you' : 'Go online to start receiving jobs',
+      trackStyle: { width: '54px', height: '32px', borderRadius: '999px', padding: '3px', display: 'flex', alignItems: 'center', background: this.state.online ? 'var(--brand)' : 'var(--ink-300)', justifyContent: this.state.online ? 'flex-end' : 'flex-start', transition: 'all var(--dur-base)', cursor: 'pointer', border: 'none', flexShrink: '0' },
+      statusChipStyle: { display: 'inline-flex', alignItems: 'center', gap: '7px', height: '30px', padding: '0 13px', borderRadius: '999px', font: 'var(--fw-semibold) 13px/1 var(--font-sans)', background: this.state.online ? 'var(--green-100)' : 'var(--locked-tint)', color: this.state.online ? 'var(--success-ink)' : 'var(--locked)' },
+      toggleOnline: () => this.setState(s => ({ online: !s.online })),
+      stockItems,
+    };
+  }
+}
+</script>
+</body>
+</html>

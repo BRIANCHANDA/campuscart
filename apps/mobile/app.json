@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "CampusCart",
+    "slug": "campuscart",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "expo-asset"
+    ]
+  }
+}

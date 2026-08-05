@@ -1,0 +1,5 @@
+/* HealthChain webfonts
+ * DM Sans (body / UI) + Playfair Display (display moments only: wordmark, login hero).
+ * NOTE: served from Google Fonts CDN. The sandbox cannot download binaries, so these
+ * are not self-hosted yet — provide .woff2 files if you need offline/self-hosted fonts. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700&display=swap');

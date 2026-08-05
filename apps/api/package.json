@@ -1,0 +1,27 @@
+{
+  "name": "@campuscart/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@campuscart/shared": "workspace:*",
+    "@hono/zod-openapi": "^0.16.0",
+    "@scalar/hono-api-reference": "^0.5.150",
+    "drizzle-orm": "^0.33.0",
+    "hono": "^4.5.0",
+    "postgres": "^3.4.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "bun-types": "^1.1.0",
+    "drizzle-kit": "^0.24.0",
+    "typescript": "^5.5.0"
+  }
+}

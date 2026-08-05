@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1783104682850,
+      "tag": "0000_damp_shen",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1783145741259,
+      "tag": "0001_milky_frank_castle",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783145784738,
+      "tag": "0002_loving_the_initiative",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1783163300208,
+      "tag": "0003_burly_mephisto",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1783241927778,
+      "tag": "0004_colossal_nekra",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1783482394752,
+      "tag": "0005_uneven_cable",
+      "breakpoints": true
+    }
+  ]
+}
