@@ -24,15 +24,22 @@ run against the real external system:
   the tracking-screen code typechecks, but no native build ran here. Expo Go
   should render it; an EAS build needs the usual Android `apiKey` config for
   Google Maps (`app.json → android.config.googleMaps.apiKey`).
-- [ ] **The mobile app end-to-end on a device.** All screens typecheck and the
-  API they call is integration-tested, but nobody has tapped through the UI.
-  Expect minor layout/UX polish, especially keyboard behavior on the forms.
+- [ ] **The mobile app on a real device.** Still unverified natively, but the
+  app has now been driven end-to-end on `expo start --web` (headless Chromium):
+  guest feed → shops → sign-in → product detail → add to cart → cart →
+  checkout surface → orders. Every screen rendered with **zero console
+  errors**. Native-only concerns remain open: keyboard behavior on the forms,
+  `react-native-maps` on the tracking screen, and safe-area insets.
+  `bun run db:seed` loads a realistic 3-shop / 13-product campus catalog.
 
 ## 2. Known simplifications to revisit
 
-- [ ] **Cart discovery.** The active cart id lives in app state (lifted from
-  the last add-to-cart response). Add `GET /cart/active` so a fresh app
-  launch can restore the cart.
+- [x] ~~**Cart discovery.**~~ Done. `GET /cart/active` returns the shopper's
+  pending cart (most recent when several shops are in play) or `null`; the app
+  restores it whenever a shopper session begins. Confirmed live beforehand —
+  a signed-in shopper with a K90 server-side cart saw "Your cart is empty" on
+  a fresh launch. Covered in `integration.checkout-dispatch.test.ts` (restore
+  + null-after-checkout).
 - [ ] **Platform shop onboarding from mobile** creates the shop without an
   admin (the API supports `adminUserId`, the screen doesn't collect it — needs
   a user search/picker). Promotion currently happens via API/console.

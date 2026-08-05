@@ -267,6 +267,10 @@ export const api = {
 
   cart: (cartId: string) => request(CartSchema, `/cart/${cartId}`),
 
+  /** The signed-in shopper's pending cart, or null. Used to restore the cart
+   *  on a fresh launch, when no cart id is held in memory yet. */
+  activeCart: () => request(CartSchema.nullable(), "/cart/active"),
+
   /** Best-effort server-side revocation; local state is cleared regardless. */
   logout: async (): Promise<void> => {
     const rt = refreshTokenValue;

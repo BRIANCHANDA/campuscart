@@ -1,5 +1,5 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
-import { and, eq, sql } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { AddToCartSchema, CartSchema, IdSchema, UpdateCartItemSchema } from "@campuscart/shared";
 import { db } from "../db";
 import { cartItems, carts, products } from "../db/schema";
@@ -78,6 +78,35 @@ cartRoutes.openapi(
         set: { qty: sql`${cartItems.qty} + ${qty}` },
       });
 
+    return c.json(await serializeCart(cart.id, cart.shopId), 200);
+  },
+);
+
+/**
+ * The caller's current active cart, so a fresh app launch can restore it
+ * instead of losing it to in-memory state. Declared before `/{cartId}` so
+ * "active" is never parsed as an id. Returns null when there is nothing
+ * pending — an empty cart is a normal state, not an error.
+ *
+ * Carts are unique per (user, shop); a shopper with carts at several shops
+ * gets the most recent one, matching the single-cart model the app presents.
+ */
+cartRoutes.openapi(
+  createRoute({
+    method: "get",
+    path: "/active",
+    tags: ["cart"],
+    security: bearerSecurity,
+    responses: { 200: jsonContent(CartSchema.nullable(), "Active cart, or null"), ...errorResponses },
+  }),
+  async (c) => {
+    const [cart] = await db
+      .select()
+      .from(carts)
+      .where(and(eq(carts.userId, c.get("claims").sub), eq(carts.checkedOut, false)))
+      .orderBy(desc(carts.createdAt))
+      .limit(1);
+    if (!cart) return c.json(null, 200);
     return c.json(await serializeCart(cart.id, cart.shopId), 200);
   },
 );

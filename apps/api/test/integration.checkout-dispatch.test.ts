@@ -216,6 +216,12 @@ describe.if(enabled)("integration: checkout → dispatch → delivered", () => {
     cartId = cart.id;
     expect(cart.subtotalMinor).toBe(11_000);
 
+    // A fresh app launch holds no cart id — /cart/active restores it.
+    const active = await call("GET", "/cart/active", { token: shopperToken });
+    expect(active.status).toBe(200);
+    expect((active.body as { id: string; subtotalMinor: number }).id).toBe(cartId);
+    expect((active.body as { subtotalMinor: number }).subtotalMinor).toBe(11_000);
+
     const key = `it-${run}-checkout`;
     const payload = {
       cartId, fulfillmentType: "delivery" as const,
@@ -261,6 +267,11 @@ describe.if(enabled)("integration: checkout → dispatch → delivered", () => {
     const byType = Object.fromEntries(ledger.map((l) => [l.entryType, l.amountMinor]));
     expect(byType["platform_fee"]).toBe(880);
     expect(byType["shop_sale"]).toBe(10_120);
+
+    // Checked-out carts are no longer active — a relaunch must not resurrect one.
+    const afterCheckout = await call("GET", "/cart/active", { token: shopperToken });
+    expect(afterCheckout.status).toBe(200);
+    expect(afterCheckout.body).toBeNull();
   });
 
   test("shop prepares, dispatches via Yango provider; courier + request id are linked", async () => {

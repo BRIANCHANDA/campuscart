@@ -7,7 +7,8 @@
     "test": "bun test",
     "test:integration": "TEST_DATABASE_URL=postgres://campuscart:campuscart@localhost:5432/campuscart bun test integration",
     "db:generate": "bun run --filter @campuscart/api db:generate",
-    "db:migrate": "bun run --filter @campuscart/api db:migrate"
+    "db:migrate": "bun run --filter @campuscart/api db:migrate",
+    "db:seed": "bun run --filter @campuscart/api db:seed"
   },
   "devDependencies": {
     "typescript": "^5.5.0"

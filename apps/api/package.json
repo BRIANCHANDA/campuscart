@@ -8,6 +8,7 @@
     "start": "bun run src/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:seed": "bun run scripts/seed.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

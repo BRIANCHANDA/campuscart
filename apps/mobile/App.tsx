@@ -1,4 +1,4 @@
-import { useCallback, useState, type JSX } from "react";
+import { useCallback, useEffect, useState, type JSX } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -54,6 +54,24 @@ function AppContent(): JSX.Element {
     if (!id) { setCartCount(0); return; }
     void api.cart(id).then((c) => setCartCount(c.items.reduce((s, i) => s + i.qty, 0))).catch(() => {});
   }, []);
+
+  /**
+   * Restore the pending cart whenever a shopper session begins. Without this
+   * the cart id only exists in memory, so a shopper who adds items and
+   * relaunches sees an empty cart while the server still holds it.
+   */
+  useEffect(() => {
+    if (user?.role !== "shopper") return;
+    let cancelled = false;
+    void api.activeCart()
+      .then((cart) => {
+        if (cancelled || !cart) return;
+        setCartId(cart.id);
+        setCartCount(cart.items.reduce((s, i) => s + i.qty, 0));
+      })
+      .catch(() => { /* no cart to restore — leave the empty state alone */ });
+    return () => { cancelled = true; };
+  }, [user?.id, user?.role]);
 
   /** Add to cart if signed in as a shopper; otherwise raise the auth gate. */
   const addToCart = useCallback((product: Product, qty = 1): void => {
