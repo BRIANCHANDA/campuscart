@@ -35,3 +35,17 @@ export const CoordinatesSchema = z.object({
   lng: z.number().min(-180).max(180),
 });
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
+
+/**
+ * Coordinates for somewhere that actually exists.
+ *
+ * (0, 0) is a valid lat/lng in the Gulf of Guinea and is exactly what an
+ * unset/zeroed field looks like — but it is ~2,500km from Zambia, so a shop
+ * or delivery landing there silently wrecks distance-based courier
+ * assignment and delivery-fee estimates. Reject it at the write boundary
+ * rather than debugging the arithmetic later.
+ */
+export const PlacedCoordinatesSchema = CoordinatesSchema.refine(
+  (c) => c.lat !== 0 || c.lng !== 0,
+  { message: "Coordinates (0, 0) are almost certainly unset — provide the real location" },
+);

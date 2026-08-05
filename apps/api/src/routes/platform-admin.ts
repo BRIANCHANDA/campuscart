@@ -1,6 +1,8 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { and, count, desc, eq, sum } from "drizzle-orm";
-import { CourierSchema, CreateShopSchema, IdSchema, ShopSchema, UpdateShopSchema } from "@campuscart/shared";
+import {
+  CourierSchema, CreateShopSchema, IdSchema, PlacedCoordinatesSchema, ShopSchema, UpdateShopSchema,
+} from "@campuscart/shared";
 import { db } from "../db";
 import { couriers, payoutLedger, products, shopAdmins, shops, users } from "../db/schema";
 import { badRequest, notFound } from "../lib/errors";
@@ -28,6 +30,12 @@ platformAdminRoutes.openapi(
           adminUserId: IdSchema.optional(),
           /** Existing user to promote to shop_admin and attach — by email. */
           adminEmail: z.string().email().optional(),
+          /**
+           * Required, and never (0,0): the pickup point feeds delivery-fee
+           * quotes and proximity-based courier assignment, so a shop without
+           * one is quietly broken for every delivery it takes.
+           */
+          location: PlacedCoordinatesSchema,
         }),
         "New shop (optionally with its first admin, by id or email)",
       ),
@@ -58,8 +66,8 @@ platformAdminRoutes.openapi(
         description: body.description ?? null,
         address: body.address ?? null,
         imageUrl: body.imageUrl ?? null,
-        pickupLat: body.location?.lat ?? 0,
-        pickupLng: body.location?.lng ?? 0,
+        pickupLat: body.location.lat,
+        pickupLng: body.location.lng,
       })
       .returning();
     if (!shop) throw new Error("shop insert failed");

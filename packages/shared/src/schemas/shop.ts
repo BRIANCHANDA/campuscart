@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CoordinatesSchema, IdSchema } from "./common";
+import { CoordinatesSchema, IdSchema, PlacedCoordinatesSchema } from "./common";
 
 export const ShopSchema = z.object({
   id: IdSchema,
@@ -18,7 +18,9 @@ export type Shop = z.infer<typeof ShopSchema>;
 export const CreateShopSchema = ShopSchema.pick({ name: true, description: true }).extend({
   address: z.string().nullable().optional(),
   imageUrl: z.string().url().nullable().optional(),
-  location: CoordinatesSchema.optional(),
+  // Writes are held to a real location; reads stay permissive so shops
+  // created before this rule existed still deserialize.
+  location: PlacedCoordinatesSchema.optional(),
 });
 export const UpdateShopSchema = CreateShopSchema.partial().extend({
   isActive: z.boolean().optional(),

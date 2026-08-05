@@ -241,6 +241,19 @@ function ShopModal({
     const lat = parseFloat(draft.lat);
     const lng = parseFloat(draft.lng);
     const location = Number.isFinite(lat) && Number.isFinite(lng) ? { lat, lng } : undefined;
+
+    // The pickup point drives delivery quotes and courier assignment, so a new
+    // shop can't go in without one. (0,0) is a real lat/lng but is what an
+    // unset field looks like — the API rejects it either way; catching it here
+    // gives a useful message instead of a validation error.
+    if (!shop && !location) {
+      setError("Latitude and longitude are required — they set the pickup point for deliveries");
+      return;
+    }
+    if (location && location.lat === 0 && location.lng === 0) {
+      setError("(0, 0) isn't a real location — enter the shop's actual coordinates");
+      return;
+    }
     setBusy(true);
     setError(null);
     try {
@@ -305,12 +318,12 @@ function ShopModal({
         </div>
         <div className="field-row">
           <div className="field">
-            <label>Latitude</label>
-            <input value={draft.lat} onInput={set("lat")} placeholder="-12.808" />
+            <label>Latitude{shop ? "" : " *"}</label>
+            <input value={draft.lat} onInput={set("lat")} placeholder="-12.808" required={!shop} />
           </div>
           <div className="field">
-            <label>Longitude</label>
-            <input value={draft.lng} onInput={set("lng")} placeholder="28.238" />
+            <label>Longitude{shop ? "" : " *"}</label>
+            <input value={draft.lng} onInput={set("lng")} placeholder="28.238" required={!shop} />
           </div>
         </div>
 

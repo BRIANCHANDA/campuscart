@@ -40,12 +40,19 @@ run against the real external system:
   a signed-in shopper with a K90 server-side cart saw "Your cart is empty" on
   a fresh launch. Covered in `integration.checkout-dispatch.test.ts` (restore
   + null-after-checkout).
-- [ ] **Platform shop onboarding from mobile** creates the shop without an
-  admin (the API supports `adminUserId`, the screen doesn't collect it — needs
-  a user search/picker). Promotion currently happens via API/console.
-- [ ] **Shop pickup coordinates** default to 0,0 unless set; the platform
-  create-shop flow should collect them (they feed delivery-fee estimates and
-  proximity assignment).
+- [x] ~~**Platform shop onboarding from mobile**~~ Obsolete. Platform admin
+  moved to the web console; the mobile screen is now just a pointer to it.
+  The console's shop form does the whole job: attach an existing owner by
+  email (`adminEmail` → resolved and promoted server-side, failing whole on a
+  typo), or provision a brand-new owner account inline.
+- [x] ~~**Shop pickup coordinates**~~ Done. `location` is now required on
+  shop creation and validated by `PlacedCoordinatesSchema`, which rejects
+  (0,0) — a real lat/lng in the Gulf of Guinea, ~2,500km from Zambia, and
+  exactly what the old `?? 0` default produced. Left unchecked it silently
+  skewed delivery-fee quotes and proximity-based courier assignment rather
+  than failing. Updates are held to the same rule; reads stay permissive so
+  pre-existing shops still deserialize. The console marks the fields required
+  and explains the rejection instead of surfacing a raw 400.
 - [x] ~~**Refresh-token persistence on mobile.**~~ Done. `expo-secure-store`
   (Keychain/Keystore) holds the refresh token; `restoreSession()` re-mints an
   access token on launch and rehydrates the user behind a splash gate, so the

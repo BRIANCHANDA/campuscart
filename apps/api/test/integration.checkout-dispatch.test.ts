@@ -70,6 +70,7 @@ describe.if(enabled)("integration: checkout → dispatch → delivered", () => {
   let orderId: string;
 
   const DROPOFF = { lat: -12.808, lng: 28.238 }; // CBU campus, Kitwe
+  const PICKUP = { lat: -12.802, lng: 28.213 };  // Monk Square, ~2.7km away
   const run = crypto.randomUUID().slice(0, 8); // unique emails per run
 
   beforeAll(async () => {
@@ -136,9 +137,26 @@ describe.if(enabled)("integration: checkout → dispatch → delivered", () => {
     shopAdminUserId = (owner.body as { user: { id: string } }).user.id;
 
     // Platform admin creates the shop and promotes the owner in one call
+    // A shop with no pickup point can't be quoted or assigned a courier.
+    const noLocation = await call("POST", "/platform/shops", {
+      token: adminToken,
+      body: { name: `No Location ${run}`, description: "Missing pickup point" },
+    });
+    expect(noLocation.status).toBe(400);
+
+    // (0,0) is a valid lat/lng but is what an unset field looks like.
+    const nullIsland = await call("POST", "/platform/shops", {
+      token: adminToken,
+      body: { name: `Null Island ${run}`, description: "Zeroed", location: { lat: 0, lng: 0 } },
+    });
+    expect(nullIsland.status).toBe(400);
+
     const shop = await call("POST", "/platform/shops", {
       token: adminToken,
-      body: { name: `Monk Square Mini Mart ${run}`, description: "Campus tuck shop", adminUserId: shopAdminUserId },
+      body: {
+        name: `Monk Square Mini Mart ${run}`, description: "Campus tuck shop",
+        adminUserId: shopAdminUserId, location: PICKUP,
+      },
     });
     expect(shop.status).toBe(201);
     shopId = (shop.body as { id: string }).id;
