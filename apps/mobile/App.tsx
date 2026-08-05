@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState, type JSX } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 import type { Product, Shop, User } from "@campuscart/shared";
-import { api } from "./src/api/client";
+import { api, restoreSession } from "./src/api/client";
 import { AuthScreen } from "./src/screens/AuthScreen";
 import { CartScreen } from "./src/screens/CartScreen";
 import { CourierScreen } from "./src/screens/CourierScreen";
@@ -40,6 +40,7 @@ const SHOPPER_TABS: TabItem<ShopperTab>[] = [
 
 function AppContent(): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
+  const [restoring, setRestoring] = useState(true);
   const [tab, setTab] = useState<ShopperTab>("home");
   const [cartId, setCartId] = useState<string | null>(null);
   const [cartCount, setCartCount] = useState(0);
@@ -98,6 +99,28 @@ function AppContent(): JSX.Element {
     setTrackingOrderId(null);
     setOpenShop(null);
   };
+
+  // ---- session restore ----------------------------------------------------
+  // Held behind `restoring` so a returning user never sees the guest UI flash
+  // before their session comes back.
+  useEffect(() => {
+    let cancelled = false;
+    void restoreSession()
+      .then((u) => { if (!cancelled && u) setUser(u); })
+      .finally(() => { if (!cancelled) setRestoring(false); });
+    return () => { cancelled = true; };
+  }, []);
+
+  if (restoring) {
+    return (
+      <SafeAreaView style={styles.root} edges={["top"]}>
+        <StatusBar style="dark" />
+        <View style={styles.splash}>
+          <ActivityIndicator size="large" color={theme.brand} />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   // ---- role dashboards (must be signed in) --------------------------------
   if (user?.role === "courier") {
@@ -289,6 +312,7 @@ export default function App(): JSX.Element {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: theme.surfaceBg },
+  splash: { flex: 1, alignItems: "center", justifyContent: "center" },
   body: { flex: 1 },
   overlayBack: {
     flexDirection: "row", alignItems: "center", gap: 2,

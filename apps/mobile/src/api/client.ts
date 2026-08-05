@@ -11,8 +11,10 @@ import {
   type OrderStatus,
   type PaymentMethod,
   type ProductFeedQuery,
+  type User,
 } from "@campuscart/shared";
 import { z } from "zod";
+import { clearRefreshToken, loadRefreshToken, saveRefreshToken } from "./session";
 
 /**
  * Typed API client. Every response is parsed with the SAME Zod schemas the
@@ -36,7 +38,11 @@ let authToken: string | null = null;
 let refreshTokenValue: string | null = null;
 
 export const setToken = (t: string | null): void => { authToken = t; };
-export const setRefreshToken = (t: string | null): void => { refreshTokenValue = t; };
+/** Also persists, so the session survives an app restart. */
+export const setRefreshToken = (t: string | null): void => {
+  refreshTokenValue = t;
+  void (t ? saveRefreshToken(t) : clearRefreshToken());
+};
 export const getToken = (): string | null => authToken;
 
 /** ws(s):// endpoint for the realtime gateway, carrying the access JWT. */
@@ -94,6 +100,34 @@ function humanize(code: string, serverMessage: string): string {
 export const errorMessage = (err: unknown): string =>
   err instanceof ApiClientError ? err.message : GENERIC_ERROR;
 
+/**
+ * Rehydrate a session from the persisted refresh token on app launch.
+ * Returns the signed-in user, or null when there is nothing to restore
+ * (no stored token, or the server has revoked/expired it).
+ *
+ * A rejected token is cleared rather than retried — reuse of a rotated
+ * refresh token revokes the whole family server-side, so holding onto it
+ * would keep the user in a permanently failing state.
+ */
+export async function restoreSession(): Promise<User | null> {
+  const stored = await loadRefreshToken();
+  if (!stored) return null;
+  refreshTokenValue = stored;
+  if (!(await tryRefresh())) {
+    await clearRefreshToken();
+    refreshTokenValue = null;
+    authToken = null;
+    return null;
+  }
+  try {
+    return await api.me();
+  } catch {
+    // Token was fine but the profile fetch failed (offline, server down).
+    // Keep the credentials — the next launch can try again.
+    return null;
+  }
+}
+
 async function rawRequest(path: string, init: RequestInit): Promise<Response> {
   try {
     return await fetch(`${BASE_URL}${path}`, {
@@ -124,7 +158,9 @@ async function tryRefresh(): Promise<boolean> {
       if (!res.ok) return false;
       const data = (await res.json()) as { token: string; refreshToken: string };
       authToken = data.token;
-      refreshTokenValue = data.refreshToken; // rotated — old one is now dead
+      // Rotated — the old one is now dead, so the stored copy must move with it
+      // or the next launch would present a revoked token.
+      setRefreshToken(data.refreshToken);
       return true;
     } catch {
       return false;

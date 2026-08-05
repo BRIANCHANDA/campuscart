@@ -46,8 +46,14 @@ run against the real external system:
 - [ ] **Shop pickup coordinates** default to 0,0 unless set; the platform
   create-shop flow should collect them (they feed delivery-fee estimates and
   proximity assignment).
-- [ ] **Refresh-token persistence on mobile.** Tokens live in memory; add
-  `expo-secure-store` so sessions survive app restarts.
+- [x] ~~**Refresh-token persistence on mobile.**~~ Done. `expo-secure-store`
+  (Keychain/Keystore) holds the refresh token; `restoreSession()` re-mints an
+  access token on launch and rehydrates the user behind a splash gate, so the
+  guest UI never flashes. Rotation writes through, and a revoked token is
+  cleared rather than retried (reuse revokes the family server-side). Web
+  preview falls back to localStorage — `expo start --web` only.
+  Verified in-browser: session survives reload, token rotates, a poisoned
+  token degrades to guest without crashing.
 - [ ] **WS reconnect** is "fall back to polling"; add exponential-backoff
   reconnection for long tracking sessions.
 - [ ] **Idempotency-key storage** has no TTL cleanup job; add a nightly
