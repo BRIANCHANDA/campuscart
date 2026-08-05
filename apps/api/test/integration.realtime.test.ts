@@ -209,6 +209,15 @@ describe.if(enabled)("integration: auth hardening + realtime", () => {
     const statusFrame = frames.find((f) => f.type === "order.status");
     expect(statusFrame?.orderId).toBe(orderId);
 
+    // Heartbeat: the client treats an unanswered ping as a half-open socket
+    // and forces a reconnect, so the pong is a contract, not a nicety.
+    ws.send(JSON.stringify({ type: "ping" }));
+    await waitFor(() => frames.some((f) => f.type === "pong"));
+
+    // A ping must not disturb the subscription it is probing.
+    await pipeline.transition({ orderId, to: "out_for_delivery", actor: "system" });
+    await waitFor(() => frames.some((f) => f.type === "order.status" && f.status === "out_for_delivery"));
+
     ws.close();
   });
 

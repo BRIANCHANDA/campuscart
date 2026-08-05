@@ -29,6 +29,9 @@ const RECONNECT_BASE_MS = 1_000;
 const RECONNECT_MAX_MS = 20_000;
 /** Gateway close code for a rejected token (see routes/ws.ts). */
 const WS_UNAUTHORIZED = 4401;
+/** Liveness probe interval. Two missed beats (~30s) is well inside the 30s
+ *  poll, so a half-open socket is caught before the user notices staleness. */
+const HEARTBEAT_MS = 15_000;
 
 /**
  * Live tracking: WebSocket-first (order status + courier location frames
@@ -74,12 +77,31 @@ export function OrderTrackingScreen({ orderId }: { orderId: string }): JSX.Eleme
       const ws = new WebSocket(wsUrl());
       wsRef.current = ws;
 
+      // Heartbeat. A NAT timeout on campus wifi half-opens the socket: no
+      // close event fires, so without an explicit round trip the screen would
+      // sit showing "live" while nothing arrives. Any frame counts as proof
+      // of life — the ping only has to cover genuinely quiet periods.
+      let awaitingPong = false;
+      const beat = setInterval(() => {
+        if (ws.readyState !== 1 /* OPEN */) return;
+        if (awaitingPong) {
+          // Previous ping went unanswered — the link is dead, close it and
+          // let the normal backoff path reconnect.
+          clearInterval(beat);
+          ws.close();
+          return;
+        }
+        awaitingPong = true;
+        try { ws.send(JSON.stringify({ type: "ping" })); } catch { /* close will follow */ }
+      }, HEARTBEAT_MS);
+
       ws.onopen = () => {
         attempt = 0; // a good connection resets the backoff
         setLive(true);
         ws.send(JSON.stringify({ type: "subscribe", orderId }));
       };
       ws.onmessage = (evt) => {
+        awaitingPong = false; // any traffic proves the link is alive
         try {
           const frame = JSON.parse(String(evt.data)) as {
             type: string; status?: string; courierLocation?: Coordinates;
@@ -95,6 +117,7 @@ export function OrderTrackingScreen({ orderId }: { orderId: string }): JSX.Eleme
         }
       };
       ws.onclose = (evt) => {
+        clearInterval(beat);
         if (closedByUs) return;
         setLive(false); // the poll carries the screen while we're down
 

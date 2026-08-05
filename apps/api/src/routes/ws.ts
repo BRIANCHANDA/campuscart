@@ -16,6 +16,8 @@ import { logger } from "../lib/logger";
  * Protocol (JSON frames):
  *   client → { type: "subscribe",   orderId }   (access-checked)
  *   client → { type: "unsubscribe", orderId }
+ *   client → { type: "ping" }
+ *   server → { type: "pong" }
  *   server → { type: "subscribed",  orderId }
  *   server → { type: "order.status",    orderId, status }
  *   server → { type: "delivery.update", orderId, status?, courierLocation? }
@@ -116,6 +118,14 @@ export const wsHandler = upgradeWebSocket(async (c) => {
         msg = JSON.parse(String(evt.data)) as typeof msg;
       } catch {
         send(ws, { type: "error", code: "BAD_FRAME", message: "Frames must be JSON" });
+        return;
+      }
+
+      // Liveness probe. A campus NAT dropping the connection leaves a
+      // half-open socket that fires no close event, so the client can't tell
+      // a quiet order from a dead link without an explicit round trip.
+      if (msg.type === "ping") {
+        send(ws, { type: "pong" });
         return;
       }
 
