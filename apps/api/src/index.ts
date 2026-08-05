@@ -1,5 +1,7 @@
 import { buildApp } from "./app";
+import { db } from "./db";
 import { env } from "./env";
+import { startIdempotencySweeper } from "./lib/idempotency";
 import { logger } from "./lib/logger";
 import { isAirtelConfigured, isMomoConfigured } from "./services/payments/gateway";
 import { websocket } from "./routes/ws";
@@ -34,6 +36,12 @@ function preflight(): void {
 }
 
 preflight();
+
+// Housekeeping: keep the idempotency table from growing without bound.
+startIdempotencySweeper(db, {
+  retentionHours: env.IDEMPOTENCY_RETENTION_HOURS,
+  intervalMs: 60 * 60 * 1000,
+});
 
 logger.info("server.start", {
   port: env.PORT,

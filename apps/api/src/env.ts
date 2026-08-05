@@ -5,6 +5,8 @@ const EnvSchema = z.object({
   DATABASE_URL: z.string().url(),
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN_SECONDS: z.coerce.number().default(86400),
+  /** How long a replayable Idempotency-Key record is kept before it is swept. */
+  IDEMPOTENCY_RETENTION_HOURS: z.coerce.number().default(48),
   YANGO_API_BASE_URL: z.string().url().default("https://b2b.taxi.yango.com"),
   YANGO_API_KEY: z.string().default(""),
   YANGO_CLIENT_ID: z.string().default(""),

@@ -1,7 +1,8 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, lt, sql } from "drizzle-orm";
 import type { Db } from "../db";
 import { idempotencyKeys } from "../db/schema";
 import { badRequest } from "./errors";
+import { logger } from "./logger";
 
 /**
  * Wraps a mutating handler with Idempotency-Key semantics:
@@ -43,4 +44,39 @@ export async function withIdempotency<T>(
     })
     .onConflictDoNothing(); // concurrent duplicate: first writer wins, both saw same logical op
   return { ...result, replayed: false };
+}
+
+/**
+ * Drop replay records past their retention window. Without this the table
+ * grows without bound — every checkout writes one row forever.
+ *
+ * The window only needs to outlive a client's retry horizon; beyond that a
+ * repeated key is a new logical operation, not a replay. Safe to run from
+ * every replica concurrently: the DELETE is idempotent.
+ */
+export async function sweepIdempotencyKeys(db: Db, retentionHours: number): Promise<number> {
+  const deleted = await db
+    .delete(idempotencyKeys)
+    .where(lt(idempotencyKeys.createdAt, sql`now() - make_interval(hours => ${retentionHours})`))
+    .returning({ key: idempotencyKeys.key });
+  return deleted.length;
+}
+
+/**
+ * Runs {@link sweepIdempotencyKeys} on an interval. Returns a stop function.
+ * `unref` keeps the timer from holding the process open on shutdown.
+ */
+export function startIdempotencySweeper(
+  db: Db,
+  opts: { retentionHours: number; intervalMs: number },
+): () => void {
+  const tick = (): void => {
+    void sweepIdempotencyKeys(db, opts.retentionHours)
+      .then((n) => { if (n > 0) logger.info("idempotency.swept", { deleted: n }); })
+      .catch((err: unknown) => logger.warn("idempotency.sweep_failed", { err: String(err) }));
+  };
+  const timer = setInterval(tick, opts.intervalMs);
+  timer.unref?.();
+  tick(); // clear anything left by a previous run's downtime
+  return () => clearInterval(timer);
 }

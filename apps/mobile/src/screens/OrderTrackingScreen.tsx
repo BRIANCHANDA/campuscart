@@ -23,6 +23,10 @@ const STATUS_MESSAGE: Record<string, string> = {
 
 /** Slow fallback poll — only load-bearing when the socket is down. */
 const FALLBACK_POLL_MS = 30_000;
+/** Reconnect backoff bounds. The cap stays under the poll interval so a long
+ *  tracking session never has both channels idle at once. */
+const RECONNECT_BASE_MS = 1_000;
+const RECONNECT_MAX_MS = 20_000;
 
 /**
  * Live tracking: WebSocket-first (order status + courier location frames
@@ -56,37 +60,55 @@ export function OrderTrackingScreen({ orderId }: { orderId: string }): JSX.Eleme
     return () => { active = false; clearInterval(timer); };
   }, [orderId]);
 
-  // Realtime channel
+  // Realtime channel, with exponential-backoff reconnection.
   useEffect(() => {
     let closedByUs = false;
-    const ws = new WebSocket(wsUrl());
-    wsRef.current = ws;
+    let attempt = 0;
+    let retry: ReturnType<typeof setTimeout> | null = null;
 
-    ws.onopen = () => {
-      setLive(true);
-      ws.send(JSON.stringify({ type: "subscribe", orderId }));
-    };
-    ws.onmessage = (evt) => {
-      try {
-        const frame = JSON.parse(String(evt.data)) as {
-          type: string; status?: string; courierLocation?: Coordinates;
-        };
-        if (frame.type === "order.status" && frame.status) {
-          setOrder((prev) => (prev ? { ...prev, status: frame.status as OrderStatus } : prev));
+    const connect = (): void => {
+      if (closedByUs) return;
+      const ws = new WebSocket(wsUrl());
+      wsRef.current = ws;
+
+      ws.onopen = () => {
+        attempt = 0; // a good connection resets the backoff
+        setLive(true);
+        ws.send(JSON.stringify({ type: "subscribe", orderId }));
+      };
+      ws.onmessage = (evt) => {
+        try {
+          const frame = JSON.parse(String(evt.data)) as {
+            type: string; status?: string; courierLocation?: Coordinates;
+          };
+          if (frame.type === "order.status" && frame.status) {
+            setOrder((prev) => (prev ? { ...prev, status: frame.status as OrderStatus } : prev));
+          }
+          if (frame.type === "delivery.update" && frame.courierLocation) {
+            setCourierPos(frame.courierLocation);
+          }
+        } catch {
+          // ignore malformed frames
         }
-        if (frame.type === "delivery.update" && frame.courierLocation) {
-          setCourierPos(frame.courierLocation);
-        }
-      } catch {
-        // ignore malformed frames
-      }
+      };
+      ws.onclose = () => {
+        if (closedByUs) return;
+        setLive(false); // the poll carries the screen while we're down
+        // Full jitter: campus wifi drops tend to hit many clients at once,
+        // so identical backoffs would reconnect in lockstep.
+        const ceiling = Math.min(RECONNECT_BASE_MS * 2 ** attempt, RECONNECT_MAX_MS);
+        attempt += 1;
+        retry = setTimeout(connect, Math.random() * ceiling);
+      };
+      ws.onerror = () => { /* surfaced via onclose */ };
     };
-    ws.onclose = () => { if (!closedByUs) setLive(false); }; // poll carries on
-    ws.onerror = () => {};
+
+    connect();
 
     return () => {
       closedByUs = true;
-      ws.close();
+      if (retry) clearTimeout(retry);
+      wsRef.current?.close();
       wsRef.current = null;
     };
   }, [orderId]);

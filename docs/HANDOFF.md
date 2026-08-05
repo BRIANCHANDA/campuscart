@@ -54,10 +54,18 @@ run against the real external system:
   preview falls back to localStorage — `expo start --web` only.
   Verified in-browser: session survives reload, token rotates, a poisoned
   token degrades to guest without crashing.
-- [ ] **WS reconnect** is "fall back to polling"; add exponential-backoff
-  reconnection for long tracking sessions.
-- [ ] **Idempotency-key storage** has no TTL cleanup job; add a nightly
-  `DELETE … WHERE created_at < now() - interval '48 hours'`.
+- [x] ~~**WS reconnect**~~ Done. The tracking socket reconnects with
+  exponential backoff and full jitter (1s base, 20s cap — under the 30s poll
+  interval so both channels are never idle together). A successful open resets
+  the backoff; the poll still carries the screen while the socket is down.
+  Jitter matters here: a campus wifi drop hits many clients at once, and
+  identical backoffs would reconnect in lockstep.
+- [x] ~~**Idempotency-key storage**~~ Done. `startIdempotencySweeper` runs
+  hourly in-process (and once at boot, to clear what accumulated during
+  downtime), dropping records past `IDEMPOTENCY_RETENTION_HOURS` (default 48).
+  The DELETE is idempotent, so every replica running it concurrently is safe.
+  Covered by `idempotency-sweep.test.ts` (stale gone, fresh and just-inside-
+  the-window kept, empty sweep is a no-op).
 - [ ] **Rate limiter body read**: `keyFrom` parses the JSON body in
   middleware; Hono caches it, but confirm no route downstream needs the raw
   stream (webhooks are outside the limiter, so currently safe).
