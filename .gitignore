@@ -30,3 +30,6 @@ core.*
 .DS_Store
 Thumbs.db
 *.swp
+
+# TypeScript incremental build cache
+*.tsbuildinfo
