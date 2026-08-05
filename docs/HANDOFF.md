@@ -32,7 +32,10 @@ run against the real external system:
   `react-native-maps` on the tracking screen, and safe-area insets.
   `bun run db:seed` loads a realistic 3-shop / 13-product campus catalog.
 
-## 2. Known simplifications to revisit
+## 2. Known simplifications to revisit — **all cleared**
+
+Every item below has been closed. They are kept (struck through, with the
+reasoning) so the decisions are auditable rather than silently vanished.
 
 - [x] ~~**Cart discovery.**~~ Done. `GET /cart/active` returns the shopper's
   pending cart (most recent when several shops are in play) or `null`; the app
@@ -73,9 +76,14 @@ run against the real external system:
   The DELETE is idempotent, so every replica running it concurrently is safe.
   Covered by `idempotency-sweep.test.ts` (stale gone, fresh and just-inside-
   the-window kept, empty sweep is a no-op).
-- [ ] **Rate limiter body read**: `keyFrom` parses the JSON body in
-  middleware; Hono caches it, but confirm no route downstream needs the raw
-  stream (webhooks are outside the limiter, so currently safe).
+- [x] ~~**Rate limiter body read**~~ Verified safe. `keyFrom` is used on
+  exactly two routes — `/auth/register` and `/auth/login` — both plain JSON.
+  `/auth/refresh` is limited without a `keyFrom`, so it never reads the body.
+  Nothing that needs the raw stream is behind the limiter: the signature-
+  verifying webhooks and the multipart upload route carry no limiter at all.
+  The suite proves the cached parse survives the middleware — every test
+  registration and login flows through `keyFrom` and still reaches its
+  handler with an intact body.
 
 ## 3. Nice-to-haves (post-pilot)
 

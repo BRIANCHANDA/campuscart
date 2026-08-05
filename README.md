@@ -100,8 +100,25 @@ cancel:   from placed (shopper/shop) or preparing (shop only)
 - **Scaling** (`TEST_REDIS_URL` set): the Redis rate-limit store counting across two store instances (the multi-replica property) and window expiry; the Redis event bridge delivering a foreign instance's frame locally while suppressing loopback (exactly-once local delivery); MoMo Disbursements transfer semantics against a scripted fetch.
 - Test files run in parallel within one Bun process, so suites share a memoized migrate-once bootstrap (`test/db-setup.ts`) and use run-unique identities instead of truncation — the suite is deterministic on a dirty database.
 
+## Local preview
+
+```bash
+docker compose up -d
+bun run db:migrate && bun run db:seed   # 3 shops, 13 products, 4 actor logins
+bun run dev:api                         # :3000  (mock payments unless keys are set)
+cd apps/mobile && bunx expo start       # --web works for a quick look
+```
+
+`db:seed` is idempotent. It prints the four logins; all use `preview-pass-1`.
+
 ## Next steps
 
-Everything in the original delivery plan is built. Remaining work is
-verification against real partner systems and UI polish — the complete,
-prioritized list lives in [docs/HANDOFF.md](docs/HANDOFF.md).
+Everything in the original delivery plan is built, and every known
+simplification in [docs/HANDOFF.md](docs/HANDOFF.md) §2 is now closed.
+
+What remains is verification that needs credentials or hardware we don't
+have: the Yango endpoint/webhook vocabulary, MoMo and Airtel production
+specifics, and a native build (`react-native-maps`, keyboard behaviour,
+safe-area insets). The shopper journey — browse → sign in → cart →
+checkout → order → track — has been driven end-to-end against a real
+database, but on `expo start --web`, not a device.
