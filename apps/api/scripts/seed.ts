@@ -3,7 +3,7 @@
  * mobile screens have something to render. Mirrors the onboarding sequence in
  * test/integration.checkout-dispatch.test.ts.
  */
-const API = "http://localhost:3000";
+const API = process.env.API_BASE_URL ?? "http://localhost:3000";
 const PW = "preview-pass-1";
 
 type Json = Record<string, unknown>;

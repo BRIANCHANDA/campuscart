@@ -46,8 +46,15 @@ export const setRefreshToken = (t: string | null): void => {
 export const getToken = (): string | null => authToken;
 
 /** ws(s):// endpoint for the realtime gateway, carrying the access JWT. */
-export const wsUrl = (): string =>
-  `${BASE_URL.replace(/^http/, "ws")}/ws?token=${encodeURIComponent(authToken ?? "")}`;
+export const wsUrl = (): string => {
+  // A single-origin deployment sets EXPO_PUBLIC_API_URL to a path ("/api")
+  // rather than an absolute URL, since a tunnel exposes only one host. fetch
+  // resolves that itself; WebSocket needs a fully-qualified origin.
+  const base = BASE_URL.startsWith("/")
+    ? `${globalThis.location?.origin ?? ""}${BASE_URL}`
+    : BASE_URL;
+  return `${base.replace(/^http/, "ws")}/ws?token=${encodeURIComponent(authToken ?? "")}`;
+};
 
 /**
  * Error surfaced to screens. `message` is ALWAYS safe to show a user — the

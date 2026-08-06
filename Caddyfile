@@ -1,0 +1,22 @@
+# Demo edge: one origin serving the web app and the API.
+#
+# Single-origin matters for tunnels — a random trycloudflare/ngrok hostname
+# only exposes one port, so the app cannot reach the API on :3000 the way it
+# does in local dev. Everything under /api is proxied to the API container,
+# which also gives the WebSocket a same-origin path (/api/ws).
+:8080 {
+	handle /api/* {
+		uri strip_prefix /api
+		# Caddy upgrades WebSockets and sets X-Forwarded-For automatically;
+		# the API's rate limiter keys on the latter.
+		reverse_proxy api:3000
+	}
+
+	handle {
+		root * /srv
+		# Expo's web build is a single-page app: unknown paths must fall
+		# through to index.html rather than 404.
+		try_files {path} /index.html
+		file_server
+	}
+}

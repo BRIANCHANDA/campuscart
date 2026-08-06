@@ -1,0 +1,89 @@
+# CampusCart — demo/testing stack.
+#
+# Brings up Postgres, the API (migrated + seeded), and Caddy serving the
+# mobile app's web build in front of both. Intended for client demos and
+# pilot testing, NOT for production:
+#   - payments and delivery are forced to their mocks (no real money moves)
+#   - demo accounts are seeded with known passwords
+#
+#   docker compose -f docker-compose.demo.yml up -d --build
+#
+# Everything is reachable on :8080 — the web app at /, the API under /api.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: campuscart
+      POSTGRES_PASSWORD: campuscart
+      POSTGRES_DB: campuscart
+    volumes:
+      - demo-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U campuscart"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://campuscart:campuscart@db:5432/campuscart
+      # Deliberately NOT named JWT_SECRET: compose substitutes ${...} from the
+      # repo's .env, whose placeholder value the API's preflight rejects. This
+      # default is demo-only — override DEMO_JWT_SECRET for anything real.
+      JWT_SECRET: ${DEMO_JWT_SECRET:-MT5ELdOsiH/t3zV7MOlRlbvwH2y1D/vTusFzdIFG7QivVSH3TQOroM/8nvf+2AiM}
+      PORT: 3000
+      # Force every external integration to its mock. Explicit empty strings
+      # override anything inherited, so a populated .env cannot make a demo
+      # deployment start talking to a real payment provider.
+      PAYMENT_PROVIDER: mock
+      MOMO_SUBSCRIPTION_KEY: ""
+      MOMO_API_USER: ""
+      MOMO_API_KEY: ""
+      MOMO_DISBURSEMENT_SUBSCRIPTION_KEY: ""
+      AIRTEL_CLIENT_ID: ""
+      AIRTEL_CLIENT_SECRET: ""
+      STRIPE_SECRET_KEY: ""
+      YANGO_API_KEY: ""
+      REDIS_URL: ""
+    command: >
+      sh -c "bun run --filter @campuscart/api db:migrate &&
+             bun run apps/api/src/index.ts"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # One-shot demo data. Seeds over HTTP, so it needs a live API rather than
+  # just a migrated database — hence its own service instead of an entrypoint
+  # step. Idempotent, so re-running the stack is safe.
+  seed:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://campuscart:campuscart@db:5432/campuscart
+      API_BASE_URL: http://api:3000
+    command: ["bun", "run", "apps/api/scripts/seed.ts"]
+    restart: "no"
+
+  web:
+    image: caddy:2-alpine
+    depends_on: [api]
+    ports:
+      - "${DEMO_PORT:-8080}:8080"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./apps/mobile/dist:/srv:ro
+
+volumes:
+  demo-pgdata:

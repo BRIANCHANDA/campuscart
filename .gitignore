@@ -33,3 +33,6 @@ Thumbs.db
 
 # TypeScript incremental build cache
 *.tsbuildinfo
+
+# Demo web build (regenerate with: expo export --platform web)
+apps/mobile/dist
