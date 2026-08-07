@@ -25,6 +25,8 @@ COPY apps/api apps/api
 ENV NODE_ENV=production
 EXPOSE 3000
 
-# drizzle-kit needs devDependencies, so migrations run via the compose
-# entrypoint rather than being baked in here.
-CMD ["bun", "run", "apps/api/src/index.ts"]
+# Migrate then serve. Drizzle's migrator is idempotent, so re-running on every
+# boot is safe and means a platform that only gives you a start command (Railway,
+# Render, Fly) needs no separate release step. devDependencies are intentionally
+# installed above — drizzle-kit lives there.
+CMD ["sh", "-c", "bun run --filter @campuscart/api db:migrate && bun run apps/api/src/index.ts"]

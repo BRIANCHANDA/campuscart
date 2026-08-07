@@ -9,7 +9,28 @@
       "**/*"
     ],
     "plugins": [
-      "expo-asset"
-    ]
+      "expo-asset",
+      "expo-secure-store"
+    ],
+    "android": {
+      "package": "com.campuscart.app",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "//": "react-native-maps renders a blank grey tile on Android without this. Create a key in Google Cloud Console (Maps SDK for Android) and paste it here.",
+          "apiKey": ""
+        }
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.campuscart.app",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "CampusCart uses your location to show couriers nearby and estimate delivery."
+      }
+    }
   }
 }

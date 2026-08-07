@@ -1,0 +1,45 @@
+{
+  "cli": {
+    "version": ">= 12.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "//": [
+      "EXPO_PUBLIC_API_URL is baked into the binary at build time — the app",
+      "cannot discover it at runtime the way the web build does. Point it at",
+      "the deployed backend BEFORE building, and rebuild if that URL changes.",
+      "It must be the public https origin with no trailing slash."
+    ],
+    "preview": {
+      "//": "Client testing: an installable APK behind a shareable link, no Play Store.",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://REPLACE-ME.up.railway.app"
+      }
+    },
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://10.0.2.2:3000"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://REPLACE-ME.up.railway.app"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

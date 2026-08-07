@@ -51,9 +51,7 @@ services:
       STRIPE_SECRET_KEY: ""
       YANGO_API_KEY: ""
       REDIS_URL: ""
-    command: >
-      sh -c "bun run --filter @campuscart/api db:migrate &&
-             bun run apps/api/src/index.ts"
+    # Migration + serve is the image's default command (see Dockerfile).
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
       interval: 5s
