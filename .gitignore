@@ -36,3 +36,6 @@ Thumbs.db
 
 # Demo web build (regenerate with: expo export --platform web)
 apps/mobile/dist
+
+# Admin production build (regenerate with: vite build)
+apps/admin/dist

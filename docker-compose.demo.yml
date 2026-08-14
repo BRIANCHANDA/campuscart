@@ -81,7 +81,8 @@ services:
       - "${DEMO_PORT:-8080}:8080"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - ./apps/mobile/dist:/srv:ro
+      - ./apps/mobile/dist:/srv/app:ro
+      - ./apps/admin/dist:/srv/admin:ro
 
 volumes:
   demo-pgdata:

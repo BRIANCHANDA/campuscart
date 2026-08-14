@@ -12,8 +12,16 @@
 		reverse_proxy api:3000
 	}
 
-	handle {
+	# Platform admin console. Built with base=/admin/ so its assets resolve
+	# here; the SPA fallback targets its own index, not the mobile app's.
+	handle /admin* {
 		root * /srv
+		try_files {path} /admin/index.html
+		file_server
+	}
+
+	handle {
+		root * /srv/app
 		# Expo's web build is a single-page app: unknown paths must fall
 		# through to index.html rather than 404.
 		try_files {path} /index.html
