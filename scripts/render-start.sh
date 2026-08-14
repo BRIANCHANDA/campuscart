@@ -3,6 +3,18 @@
 # then hand the foreground to Caddy (which binds Render's $PORT).
 set -e
 
+# drizzle-kit's own failure for a missing URL is "[x] url: undefined", which
+# gives no hint that the cause is an unset service variable. Say it plainly.
+if [ -z "$DATABASE_URL" ]; then
+	echo "✗ DATABASE_URL is not set."
+	echo "  On Render this is wired automatically by render.yaml, but ONLY when the"
+	echo "  service is created via New → Blueprint. A service created through"
+	echo "  New → Web Service ignores render.yaml: no database is attached, and it"
+	echo "  builds ./Dockerfile instead of ./Dockerfile.render."
+	echo "  Fix: delete the service and re-create it from the Blueprint."
+	exit 1
+fi
+
 echo "→ applying migrations"
 bun run --filter @campuscart/api db:migrate
 
