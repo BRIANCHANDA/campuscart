@@ -1,14 +1,61 @@
 # CampusCart — Deploying for client testing
 
-Backend on Railway, Android app via EAS. **Order matters:** the API URL is
-compiled into the native binary, so the backend must be live and its URL known
-before the app is built.
+Backend + admin console on Render, Android app via EAS. **Order matters:** the
+API URL is compiled into the native binary, so the backend must be live and its
+URL known before the app is built.
 
 ---
 
-## 1. Backend → Railway
+## 0. Backend + admin console → Render (recommended)
 
-Railway builds straight from the GitHub repo — no CLI needed.
+One Blueprint deploys the API, the admin console and Postgres together.
+
+1. **Render dashboard → New → Blueprint**, pick this repo. It reads
+   `render.yaml`: one Docker web service plus a free Postgres.
+2. Apply. Render builds `Dockerfile.render`, generates `JWT_SECRET`, and wires
+   `DATABASE_URL` from the database automatically.
+3. Migrations run on boot, so there's no release step.
+
+You get one HTTPS origin:
+
+| Path | Serves |
+|---|---|
+| `/` | Admin console |
+| `/api/*` | API, including the `/api/ws` WebSocket |
+
+The console can't live at `/admin` — `/admin/shops` is already an API
+namespace — hence the console at the root and the API under `/api`.
+
+Verify:
+
+```bash
+curl https://<service>.onrender.com/api/health
+# {"ok":true,"payments":{"airtelMoney":"mock","mtnMomo":"mock"}}
+```
+
+`mock` on both wallets is the safety check. Confirm it before sharing anything.
+
+Then seed demo data (see *Seeding* below), pointing at the Render database's
+**external** connection string.
+
+### Free-tier caveats — read before demoing
+
+- **The service sleeps after ~15 minutes idle.** The first request afterwards
+  takes ~30s+ while the container cold-starts. Warn your client, or hit the URL
+  yourself just before a demo.
+- **Free Postgres expires.** Render's free databases are time-limited; when it
+  lapses the data goes with it. Fine for a pilot, not for anything you care
+  about keeping.
+- **512 MB RAM** on the free instance. Adequate for the API, but it is the
+  first thing to suspect if the container restarts under load.
+
+---
+
+## 1. Alternative backend → Railway
+
+Same container, different host. Railway builds straight from the GitHub repo —
+no CLI needed. Unlike Render it does not sleep, but it is not free beyond a
+small monthly credit.
 
 1. **New Project → Deploy from GitHub repo** → `BRIANCHANDA/campuscart`.
    `railway.json` selects the Dockerfile and health-checks `/health`.
@@ -60,10 +107,11 @@ not for anything beyond it.
 
 ## 2. Android app → EAS
 
-Set the backend URL first — `apps/mobile/eas.json`, `preview.env`:
+Set the backend URL first — `apps/mobile/eas.json`, `preview.env`. Note the
+`/api` suffix: the API is namespaced behind the same origin as the console.
 
 ```json
-"EXPO_PUBLIC_API_URL": "https://<name>.up.railway.app"
+"EXPO_PUBLIC_API_URL": "https://<service>.onrender.com/api"
 ```
 
 No trailing slash. Then:

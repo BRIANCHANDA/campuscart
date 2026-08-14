@@ -1,0 +1,56 @@
+# Render Blueprint — one service + one database, deployed together.
+#
+#   Render dashboard → New → Blueprint → pick this repo.
+#
+# Serves the admin console at / and the API under /api on a single HTTPS
+# origin. The mobile app is built separately through EAS and points at
+# https://<service>.onrender.com/api
+databases:
+  - name: campuscart-db
+    databaseName: campuscart
+    user: campuscart
+    plan: free
+
+services:
+  - type: web
+    name: campuscart
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile.render
+    # Proves the API behind Caddy is alive, not just that Caddy booted.
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: campuscart-db
+          property: connectionString
+      # 256-bit random, generated once by Render and kept across deploys.
+      # The API refuses to boot in production on a short or placeholder secret.
+      - key: JWT_SECRET
+        generateValue: true
+      - key: NODE_ENV
+        value: production
+
+      # Every external integration pinned to its mock. These are explicit
+      # empty strings, not omissions, so nothing inherited can quietly put a
+      # test deployment on a live payment rail.
+      - key: PAYMENT_PROVIDER
+        value: mock
+      - key: MOMO_SUBSCRIPTION_KEY
+        value: ""
+      - key: MOMO_API_USER
+        value: ""
+      - key: MOMO_API_KEY
+        value: ""
+      - key: MOMO_DISBURSEMENT_SUBSCRIPTION_KEY
+        value: ""
+      - key: AIRTEL_CLIENT_ID
+        value: ""
+      - key: AIRTEL_CLIENT_SECRET
+        value: ""
+      - key: STRIPE_SECRET_KEY
+        value: ""
+      - key: YANGO_API_KEY
+        value: ""
+      - key: REDIS_URL
+        value: ""

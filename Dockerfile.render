@@ -1,0 +1,61 @@
+# CampusCart — single-service image for Render (and any host that gives you
+# one port).
+#
+# Render runs containers, not compose files, so the API and the admin console
+# ship together behind one Caddy process:
+#
+#   /      → admin console (static Vite build)
+#   /api/* → the API, prefix stripped (WebSocket included)
+#
+# The API's own routes include /admin/shops, so the console cannot be served
+# at /admin — hence the console at the root and the API namespaced under /api.
+#
+# The mobile app is NOT here: it ships as a native build through EAS and only
+# needs this deployment's URL.
+
+# --------------------------------------------------------------- builder ---
+FROM oven/bun:1.3-alpine AS builder
+WORKDIR /app
+
+COPY package.json bun.lock bunfig.toml tsconfig.base.json ./
+COPY packages/shared/package.json packages/shared/
+COPY apps/api/package.json apps/api/
+COPY apps/mobile/package.json apps/mobile/
+COPY apps/admin/package.json apps/admin/
+RUN bun install --frozen-lockfile
+
+COPY packages/shared packages/shared
+COPY apps/admin apps/admin
+
+# Served from the root of this origin, calling the API on the same origin.
+ENV ADMIN_BASE_PATH=/
+ENV VITE_API_URL=/api
+RUN cd apps/admin && bunx vite build
+
+# ---------------------------------------------------------------- runtime ---
+FROM oven/bun:1.3-alpine
+WORKDIR /app
+
+# Version-pinned Caddy rather than an apk floating version.
+COPY --from=caddy:2-alpine /usr/bin/caddy /usr/bin/caddy
+
+COPY package.json bun.lock bunfig.toml tsconfig.base.json ./
+COPY packages/shared/package.json packages/shared/
+COPY apps/api/package.json apps/api/
+COPY apps/mobile/package.json apps/mobile/
+COPY apps/admin/package.json apps/admin/
+RUN bun install --frozen-lockfile
+
+COPY packages/shared packages/shared
+COPY apps/api apps/api
+COPY --from=builder /app/apps/admin/dist /srv/admin
+
+COPY Caddyfile.render /etc/caddy/Caddyfile
+COPY scripts/render-start.sh /usr/local/bin/render-start.sh
+RUN chmod +x /usr/local/bin/render-start.sh
+
+ENV NODE_ENV=production
+# Caddy binds Render's $PORT; the API stays on loopback behind it.
+ENV API_PORT=3000
+
+CMD ["/usr/local/bin/render-start.sh"]

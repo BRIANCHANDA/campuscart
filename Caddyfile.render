@@ -1,0 +1,22 @@
+# Single-origin edge for the Render deployment.
+# Render terminates TLS and hands the container a $PORT to bind.
+{
+	admin off
+	auto_https off
+}
+
+:{$PORT:8080} {
+	handle /api/* {
+		uri strip_prefix /api
+		# Caddy upgrades WebSockets and forwards X-Forwarded-For, which the
+		# API's rate limiter keys on.
+		reverse_proxy 127.0.0.1:{$API_PORT:3000}
+	}
+
+	handle {
+		root * /srv/admin
+		# Vite SPA: unknown paths fall through to index.html rather than 404.
+		try_files {path} /index.html
+		file_server
+	}
+}
