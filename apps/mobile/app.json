@@ -20,7 +20,6 @@
       ],
       "config": {
         "googleMaps": {
-          "//": "react-native-maps renders a blank grey tile on Android without this. Create a key in Google Cloud Console (Maps SDK for Android) and paste it here.",
           "apiKey": ""
         }
       }
@@ -31,6 +30,12 @@
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "CampusCart uses your location to show couriers nearby and estimate delivery."
       }
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "33d5f62f-6abc-4947-ac75-38207006c4b6"
+      }
+    },
+    "owner": "brian.chanda"
   }
 }
