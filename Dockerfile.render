@@ -39,6 +39,16 @@ WORKDIR /app
 # Version-pinned Caddy rather than an apk floating version.
 COPY --from=caddy:2-alpine /usr/bin/caddy /usr/bin/caddy
 
+# The official image ships the binary with cap_net_bind_service=ep so it can
+# bind :80/:443 as a non-root user. Render (and any runtime using
+# no-new-privileges or gVisor) refuses to exec a file carrying capabilities it
+# cannot grant, which surfaces as "caddy: Operation not permitted" — exit 126,
+# after a completely successful build. Strip them: the platform hands us a high
+# $PORT, so the capability is never needed here.
+RUN apk add --no-cache libcap >/dev/null \
+	&& setcap -r /usr/bin/caddy 2>/dev/null || true; \
+	apk del libcap >/dev/null 2>&1 || true
+
 COPY package.json bun.lock bunfig.toml tsconfig.base.json ./
 COPY packages/shared/package.json packages/shared/
 COPY apps/api/package.json apps/api/
