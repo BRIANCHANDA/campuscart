@@ -33,7 +33,12 @@ const { drizzle } = await import("drizzle-orm/postgres-js");
 const postgres = (await import("postgres")).default;
 const schema = await import("../src/db/schema");
 
-const sql = postgres(process.env.DATABASE_URL ?? "postgres://campuscart:campuscart@localhost:5432/campuscart");
+const DB_URL = process.env.DATABASE_URL ?? "postgres://campuscart:campuscart@localhost:5432/campuscart";
+// Managed Postgres (Render, Neon, Supabase…) refuses non-TLS connections, and
+// their certs are issued to internal hostnames — so verify-full would fail on a
+// perfectly good connection. Local Docker has no TLS at all. Pick per host.
+const isLocal = /@(localhost|127\.0\.0\.1|db):/.test(DB_URL);
+const sql = postgres(DB_URL, isLocal ? {} : { ssl: "require" });
 const db = drizzle(sql, { schema });
 
 const adminEmail = "admin@campuscart.test";
