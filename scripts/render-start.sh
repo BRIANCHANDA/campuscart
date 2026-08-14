@@ -15,6 +15,24 @@ if [ -z "$DATABASE_URL" ]; then
 	exit 1
 fi
 
+# The API's own preflight exits on a weak secret, but its message doesn't say
+# where the value came from. render.yaml uses generateValue, so if that ever
+# yields something short this is the first place it shows up.
+SECRET_LEN=$(printf %s "${JWT_SECRET:-}" | wc -c | tr -d ' ')
+if [ -z "${JWT_SECRET:-}" ] || [ "$SECRET_LEN" -lt 32 ]; then
+	echo "✗ JWT_SECRET is missing or too short (${SECRET_LEN} chars, need >= 32)."
+	echo "  Set it on the service: Environment → JWT_SECRET → openssl rand -base64 48"
+	exit 1
+fi
+case "$JWT_SECRET" in
+*change-me*)
+	echo "✗ JWT_SECRET is the repo placeholder — the API refuses to start on it."
+	echo "  Set a real one: Environment → JWT_SECRET → openssl rand -base64 48"
+	exit 1
+	;;
+esac
+
+echo "→ config ok (secret ${SECRET_LEN} chars, port ${PORT:-8080})"
 echo "→ applying migrations"
 bun run --filter @campuscart/api db:migrate
 
