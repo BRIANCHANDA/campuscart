@@ -37,8 +37,29 @@ echo "→ applying migrations"
 bun run --filter @campuscart/api db:migrate
 
 echo "→ starting API on 127.0.0.1:${API_PORT:-3000}"
-PORT="${API_PORT:-3000}" bun run apps/api/src/index.ts &
+# HOST pins it to loopback. Bound to every interface, a platform port scanner
+# discovers the API directly and may route to it instead of the proxy — which
+# would serve the raw API at / and 404 the console.
+PORT="${API_PORT:-3000}" HOST=127.0.0.1 bun run apps/api/src/index.ts &
 API_PID=$!
+
+# Caddy comes up faster than the API, so the platform's first health check can
+# arrive while the proxy has nothing to talk to — one spurious 502 per deploy.
+# Wait for the API to answer before opening the front door.
+echo "→ waiting for the API to accept connections"
+i=0
+while [ "$i" -lt 120 ]; do
+	if wget -q -O /dev/null "http://127.0.0.1:${API_PORT:-3000}/health" 2>/dev/null; then
+		echo "→ API is listening"
+		break
+	fi
+	if ! kill -0 "$API_PID" 2>/dev/null; then
+		echo "✗ API exited during startup — see its output above"
+		exit 1
+	fi
+	i=$((i + 1))
+	sleep 0.5
+done
 
 # Caddy would happily keep serving a 502 if the API died, and the platform
 # would see a healthy process. Take the whole container down instead so the

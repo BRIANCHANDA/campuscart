@@ -2,6 +2,13 @@ import { z } from "zod";
 
 const EnvSchema = z.object({
   PORT: z.coerce.number().default(3000),
+  /**
+   * Interface to bind. Empty (the default) binds every interface, which is what
+   * you want when the container itself is the public surface. Set to 127.0.0.1
+   * when something else fronts the API on the same host — otherwise a platform
+   * port scanner can discover the API directly and route past the proxy.
+   */
+  HOST: z.string().default(""),
   DATABASE_URL: z.string().url(),
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN_SECONDS: z.coerce.number().default(86400),

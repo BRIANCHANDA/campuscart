@@ -51,6 +51,7 @@ logger.info("server.start", {
 
 export default {
   port: env.PORT,
+  ...(env.HOST ? { hostname: env.HOST } : {}),
   fetch: app.fetch,
   websocket, // realtime gateway upgrade handler
 };
