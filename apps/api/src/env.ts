@@ -36,6 +36,15 @@ const EnvSchema = z.object({
   AIRTEL_CLIENT_SECRET: z.string().default(""),
   AIRTEL_COUNTRY: z.string().default("ZM"),
   AIRTEL_CALLBACK_SECRET: z.string().default(""),
+  // Lenco — one aggregator covering MTN, Airtel and Zamtel, for both
+  // collections (money in) and transfers (courier payouts). Configuring it
+  // takes precedence over the direct telco integrations.
+  LENCO_API_BASE_URL: z.string().url().default("https://api.lenco.co/access/v2"),
+  LENCO_API_KEY: z.string().default(""),
+  /** The 36-char account UUID transfers debit. Required for payouts only. */
+  LENCO_ACCOUNT_ID: z.string().default(""),
+  /** Who absorbs the collection fee: "merchant" (us) or "customer". */
+  LENCO_FEE_BEARER: z.enum(["merchant", "customer"]).default("merchant"),
 });
 
 export const env = EnvSchema.parse(process.env);

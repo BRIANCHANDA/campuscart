@@ -5,6 +5,8 @@ import { AirtelMoneyProvider } from "./airtel-money";
 import { MtnMomoProvider } from "./mtn-momo";
 import { MockPaymentProvider } from "./mock";
 import { momoDisbursements } from "./momo-disbursements";
+import { LencoProvider } from "./lenco";
+import { lencoDisbursements } from "./lenco-disbursements";
 import { NoopDisbursements, type DisbursementProvider } from "./disbursement";
 import type { PaymentProvider } from "./provider";
 
@@ -22,42 +24,101 @@ export const isAirtelConfigured = (): boolean =>
 export const isMomoConfigured = (): boolean =>
   Boolean(env.MOMO_SUBSCRIPTION_KEY && env.MOMO_API_USER && env.MOMO_API_KEY);
 
+/** One key covers MTN, Airtel and Zamtel collections. */
+export const isLencoConfigured = (): boolean => Boolean(env.LENCO_API_KEY);
+
 const mock = new MockPaymentProvider();
 const noopDisbursements = new NoopDisbursements();
 // Providers hold cached tokens, so keep one instance each.
 const airtel = new AirtelMoneyProvider();
 const momo = new MtnMomoProvider();
+const lencoMtn = new LencoProvider("mtn_momo");
+const lencoAirtel = new LencoProvider("airtel_money");
 
-/** The live provider for a method, or the mock when its keys aren't set yet. */
+/**
+ * The live provider for a method, or the mock when its keys aren't set yet.
+ *
+ * Lenco wins when configured: it fronts every network through one integration,
+ * so running it alongside a direct telco relationship would mean two paths to
+ * the same wallet and two sets of webhooks settling the same payments.
+ */
 export function providerFor(method: PaymentMethod): PaymentProvider {
-  if (method === "airtel_money") return isAirtelConfigured() ? airtel : mock;
-  return isMomoConfigured() ? momo : mock;
+  switch (resolveCollectionRail(method, {
+    lenco: isLencoConfigured(), airtel: isAirtelConfigured(), momo: isMomoConfigured(),
+  })) {
+    case "lenco": return method === "airtel_money" ? lencoAirtel : lencoMtn;
+    case "airtel": return airtel;
+    case "momo": return momo;
+    default: return mock;
+  }
+}
+
+export type ConfiguredRails = { lenco: boolean; airtel: boolean; momo: boolean };
+
+/**
+ * Which rail a set of configured credentials implies. Split out as a pure
+ * function so the precedence — the part with real consequences — is testable
+ * without mutating the shared parsed env that every suite in the process reads.
+ */
+export function resolveCollectionRail(
+  method: PaymentMethod,
+  configured: ConfiguredRails,
+): "lenco" | "airtel" | "momo" | "mock" {
+  if (configured.lenco) return "lenco";
+  if (method === "airtel_money") return configured.airtel ? "airtel" : "mock";
+  return configured.momo ? "momo" : "mock";
+}
+
+/** Payout counterpart of resolveCollectionRail. */
+export function resolvePayoutRail(
+  configured: { lenco: boolean; momo: boolean },
+): "lenco" | "momo" | "none" {
+  if (configured.lenco) return "lenco";
+  if (configured.momo) return "momo";
+  return "none";
 }
 
 /** True once real credentials exist for that wallet. */
 export function isLive(method: PaymentMethod): boolean {
+  if (isLencoConfigured()) return true;
   return method === "airtel_money" ? isAirtelConfigured() : isMomoConfigured();
 }
 
 /**
  * The rail courier payouts and refunds go out on.
  *
- * Only MTN Disbursements today. When Lenco is wired, prefer it here — one
- * provider covering both networks beats holding an MTN-only relationship open
- * purely for payouts — and this stays the single place that decides.
+ * Lenco first: it reaches Airtel and Zamtel wallets as well as MTN, so a
+ * courier's network stops being a payout constraint. MTN Disbursements remains
+ * as a fallback for deployments still on the direct integration.
  */
 export function disbursementProvider(): DisbursementProvider {
-  if (momoDisbursements.isConfigured) return momoDisbursements;
-  return noopDisbursements;
+  switch (resolvePayoutRail({
+    lenco: lencoDisbursements.isConfigured, momo: momoDisbursements.isConfigured,
+  })) {
+    case "lenco": return lencoDisbursements;
+    case "momo": return momoDisbursements;
+    default: return noopDisbursements;
+  }
 }
 
-/** Snapshot for health/status surfaces. */
-export function paymentStatus(): { airtelMoney: "live" | "mock"; mtnMomo: "live" | "mock" } {
-  const status = {
+/**
+ * Snapshot for health/status surfaces. This is the check used to confirm a
+ * demo deployment cannot move real money, so it has to report Lenco too —
+ * reporting only the direct integrations would show "mock" on a deployment
+ * that is very much live.
+ */
+export function paymentStatus(): {
+  airtelMoney: "live" | "mock";
+  mtnMomo: "live" | "mock";
+  via?: "lenco";
+} {
+  if (isLencoConfigured()) {
+    return { airtelMoney: "live", mtnMomo: "live", via: "lenco" };
+  }
+  return {
     airtelMoney: isAirtelConfigured() ? ("live" as const) : ("mock" as const),
     mtnMomo: isMomoConfigured() ? ("live" as const) : ("mock" as const),
   };
-  return status;
 }
 
 logger.info("payments.gateway", paymentStatus());

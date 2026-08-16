@@ -23,6 +23,7 @@ export const webhookRoutes = new Hono();
 async function handlePaymentCallback(c: Context, method: PaymentMethod) {
   const raw = await c.req.text();
   const signature =
+    c.req.header("X-Lenco-Signature") ?? // Lenco (HMAC-SHA512 over the raw body)
     c.req.header("X-Auth-Signature") ?? // Airtel
     c.req.header("X-Signature") ??
     c.req.header("Stripe-Signature") ??
@@ -53,6 +54,10 @@ async function handlePaymentCallback(c: Context, method: PaymentMethod) {
 
 webhookRoutes.post("/payments/mtn", (c) => handlePaymentCallback(c, "mtn_momo"));
 webhookRoutes.post("/payments/airtel", (c) => handlePaymentCallback(c, "airtel_money"));
+// Lenco posts collection.* and transfer.* to one endpoint for every network.
+// The method here only selects a provider to parse with — the payment is found
+// by the reference in the body, so it is correct for any operator.
+webhookRoutes.post("/payments/lenco", (c) => handlePaymentCallback(c, "mtn_momo"));
 
 /**
  * Yango claim status webhook — push-based sync so we don't have to poll track().

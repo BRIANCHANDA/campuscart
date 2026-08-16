@@ -10,6 +10,10 @@
 | `PORT` | | `3000` | |
 | `PAYMENT_PROVIDER` | | `mock` | `mock` \| `stripe` \| `mtn_momo` \| `airtel_money` |
 | `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` | with stripe | `""` | Webhooks **fail closed** without the secret |
+| `LENCO_API_KEY` | for live payments | `""` | One key covers MTN, Airtel and Zamtel — **takes precedence over the direct integrations below** |
+| `LENCO_ACCOUNT_ID` | for payouts | `""` | 36-char account UUID transfers debit |
+| `LENCO_FEE_BEARER` | | `merchant` | `merchant` (you absorb the fee) or `customer` |
+| `LENCO_API_BASE_URL` | | `https://api.lenco.co/access/v2` | |
 | `MOMO_API_BASE_URL` | | sandbox | Production is per-market |
 | `MOMO_SUBSCRIPTION_KEY` / `MOMO_API_USER` / `MOMO_API_KEY` | with mtn_momo | `""` | Collections product |
 | `MOMO_TARGET_ENVIRONMENT` | | `sandbox` | e.g. `mtnzambia` in production — confirm in portal |
@@ -49,7 +53,24 @@ Generate the hash with `bun -e "console.log(await Bun.password.hash('…'))"`.
 
 ## 3. Provider onboarding checklists
 
-**MTN MoMo**
+**Lenco** (recommended — one integration for every network, in and out)
+1. Get an API key from the Lenco dashboard and set `LENCO_API_KEY`.
+2. Set `LENCO_ACCOUNT_ID` to the account payouts should debit (`GET /accounts`
+   lists them). Without it, collections work and courier payouts fall back to
+   manual settlement.
+3. Register the webhook at `POST /webhooks/payments/lenco`. There is no separate
+   secret to configure: signatures are HMAC-SHA512 over the raw body, keyed on a
+   SHA-256 of the API key, and arrive in `X-Lenco-Signature`.
+4. Verify: `GET /health` should report `{"via":"lenco"}` with both wallets
+   `live`. Then place an order, approve on the handset, and confirm the payment
+   row flips to `succeeded` and the app receives the `payment.update` frame.
+
+⚠️ Courier payouts infer the network from the MSISDN prefix
+(`operatorFromPhone`). Verify those prefixes against current MNO allocations,
+and note that a ported number defeats prefix inference — Lenco's
+`/resolve/mobile-money` is the authoritative fix.
+
+**MTN MoMo** (legacy — superseded by Lenco)
 1. Create the app in the MTN developer portal; subscribe to **Collections**
    (and **Disbursements** if doing refunds/automated payouts).
 2. Register the callback URL — must equal `MOMO_CALLBACK_URL`.
