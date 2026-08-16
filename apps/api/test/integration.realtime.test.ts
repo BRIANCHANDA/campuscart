@@ -219,7 +219,12 @@ describe.if(enabled)("integration: auth hardening + realtime", () => {
     await waitFor(() => frames.some((f) => f.type === "order.status" && f.status === "out_for_delivery"));
 
     ws.close();
-  });
+    // Bun's default 5s is too tight for this one: it registers four actors
+    // (bcrypt each), builds a shop and product, runs a full checkout, then
+    // opens a socket and drives two transitions. It fits comfortably against a
+    // warm database and overruns against a cold one — which is exactly the
+    // difference between a local re-run and the first run in CI.
+  }, 30_000);
 
   test("gateway rejects bad tokens and foreign-order subscriptions", async () => {
     // Bad token → server closes the socket with 4401 specifically. The mobile

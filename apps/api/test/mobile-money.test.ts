@@ -121,7 +121,9 @@ describe("MtnMomoProvider", () => {
 
   test("refund fails loudly rather than pretending", async () => {
     const p = new MtnMomoProvider();
-    expect(p.refund("ref-1", 1000)).rejects.toThrow(/Disbursements/);
+    // Matches on the behaviour, not the rail: which provider moves the money
+    // is now a gateway decision, so the message must not name MTN.
+    expect(p.refund("ref-1", 1000)).rejects.toThrow(/payout provider|manually/i);
   });
 });
 

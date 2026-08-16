@@ -4,6 +4,8 @@ import { logger } from "../../lib/logger";
 import { AirtelMoneyProvider } from "./airtel-money";
 import { MtnMomoProvider } from "./mtn-momo";
 import { MockPaymentProvider } from "./mock";
+import { momoDisbursements } from "./momo-disbursements";
+import { NoopDisbursements, type DisbursementProvider } from "./disbursement";
 import type { PaymentProvider } from "./provider";
 
 /**
@@ -21,6 +23,7 @@ export const isMomoConfigured = (): boolean =>
   Boolean(env.MOMO_SUBSCRIPTION_KEY && env.MOMO_API_USER && env.MOMO_API_KEY);
 
 const mock = new MockPaymentProvider();
+const noopDisbursements = new NoopDisbursements();
 // Providers hold cached tokens, so keep one instance each.
 const airtel = new AirtelMoneyProvider();
 const momo = new MtnMomoProvider();
@@ -34,6 +37,18 @@ export function providerFor(method: PaymentMethod): PaymentProvider {
 /** True once real credentials exist for that wallet. */
 export function isLive(method: PaymentMethod): boolean {
   return method === "airtel_money" ? isAirtelConfigured() : isMomoConfigured();
+}
+
+/**
+ * The rail courier payouts and refunds go out on.
+ *
+ * Only MTN Disbursements today. When Lenco is wired, prefer it here — one
+ * provider covering both networks beats holding an MTN-only relationship open
+ * purely for payouts — and this stays the single place that decides.
+ */
+export function disbursementProvider(): DisbursementProvider {
+  if (momoDisbursements.isConfigured) return momoDisbursements;
+  return noopDisbursements;
 }
 
 /** Snapshot for health/status surfaces. */

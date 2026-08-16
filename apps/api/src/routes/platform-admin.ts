@@ -404,10 +404,11 @@ platformAdminRoutes.openapi(
     // Push the money first when Disbursements is configured — a crash after
     // transfer but before the DB update is visible via the transfer ref log
     // and re-settlement is guarded by status=pending.
-    const { momoDisbursements } = await import("../services/payments/momo-disbursements");
+    const { disbursementProvider } = await import("../services/payments/gateway");
+    const payouts = disbursementProvider();
     let settlementRef = "manual";
     let transferred = false;
-    if (momoDisbursements.isConfigured) {
+    if (payouts.isConfigured) {
       const [row] = await db
         .select({ phone: users.phone })
         .from(couriers)
@@ -415,7 +416,7 @@ platformAdminRoutes.openapi(
         .where(eq(couriers.id, courierId))
         .limit(1);
       if (!row) throw notFound("Courier");
-      settlementRef = await momoDisbursements.transfer({
+      settlementRef = await payouts.transfer({
         amountMinor: total,
         currency: "ZMW",
         payeePhone: row.phone,

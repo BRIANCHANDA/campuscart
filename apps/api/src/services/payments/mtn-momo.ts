@@ -136,12 +136,15 @@ export class MtnMomoProvider implements PaymentProvider {
   async refund(providerRef: string, amountMinor: number): Promise<void> {
     // Refunds ride MTN's Disbursements product. We look up the original
     // payer's MSISDN from the collection resource, then push the money back.
-    const { momoDisbursements } = await import("./momo-disbursements");
-    if (!momoDisbursements.isConfigured) {
+    // The payout rail is whatever the gateway selects; the MSISDN lookup below
+    // still has to come from MoMo, since that is where the collection lives.
+    const { disbursementProvider } = await import("./gateway");
+    const payouts = disbursementProvider();
+    if (!payouts.isConfigured) {
       throw new AppError(
         502,
         "REFUND_NOT_SUPPORTED",
-        "MoMo refunds require Disbursements credentials — process manually for now",
+        "Refunds require a configured payout provider — process this one manually",
       );
     }
     const token = await this.accessToken();
@@ -154,7 +157,7 @@ export class MtnMomoProvider implements PaymentProvider {
     if (!original.payer?.partyId) {
       throw new AppError(502, "PAYMENT_PROVIDER_ERROR", "Original payment has no payer MSISDN");
     }
-    await momoDisbursements.transfer({
+    await payouts.transfer({
       amountMinor,
       currency: original.currency ?? "ZMW",
       payeePhone: original.payer.partyId,

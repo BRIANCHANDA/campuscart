@@ -1,6 +1,7 @@
 import { env } from "../../env";
 import { AppError } from "../../lib/errors";
 import { logger } from "../../lib/logger";
+import type { DisbursementProvider, TransferInput } from "./disbursement";
 
 /**
  * MTN MoMo Disbursements — money OUT (the Collections product only pulls
@@ -12,7 +13,9 @@ import { logger } from "../../lib/logger";
  * dedicated DISBURSEMENT_* env vars. Configured-ness is checked at call time
  * so deployments that settle payouts manually can leave it unwired.
  */
-export class MomoDisbursements {
+export class MomoDisbursements implements DisbursementProvider {
+  readonly name = "mtn_momo";
+
   private token: { value: string; expiresAt: number } | null = null;
 
   get isConfigured(): boolean {
@@ -50,14 +53,7 @@ export class MomoDisbursements {
    * Push money to an MSISDN. Returns the reference UUID we minted — persist
    * it before calling so a crash between transfer and persist is auditable.
    */
-  async transfer(input: {
-    amountMinor: number;
-    currency: string;
-    payeePhone: string;
-    note: string;
-    /** Idempotency: pass an existing reference to retry the SAME transfer. */
-    referenceId?: string;
-  }): Promise<string> {
+  async transfer(input: TransferInput): Promise<string> {
     if (!this.isConfigured) {
       throw new AppError(
         502,
